@@ -1,0 +1,21 @@
+# Deep Learning & Transformers
+torch>=2.0.0
+transformers>=4.38.0
+datasets>=2.18.0
+accelerate>=0.27.0
+evaluate>=0.4.1
+
+# Metrics & Data Processing
+scikit-learn
+pandas
+numpy
+
+# Vietnamese NLP Tools
+underthesea>=6.8.0
+
+# Demo UI
+gradio>=4.0.0
+
+# Jupyter / Tracking (tùy chọn)
+jupyterlab
+tqdm
