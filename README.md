@@ -10,7 +10,7 @@ Dự án thực hiện giải quyết bài toán trích xuất câu trả lời 
 5. **Giai đoạn 5: Demo**: Xây dựng giao diện Gradio để trình diễn khả năng của mô hình tốt nhất.
 
 <<<<<<< HEAD
-## 🛠 Cài đặt & Thiết lập
+## Cài đặt & Thiết lập
 =======
 ##Cài đặt & Thiết lập
 >>>>>>> 36a04389045fed49fa99b143d018149047918d97
