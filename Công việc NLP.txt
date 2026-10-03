@@ -1,0 +1,27 @@
+PHÚC:
+- Tải dataset taidng/UIT-ViQuAD2.0, lọc tập con 5.000 – 8.000 mẫu
+- Chạy notebook 01_eda...: tính độ dài câu, tỷ lệ answerable/unanswerable, vẽ biểu đồ phân bố
+
+- Chạy notebook 02_baseline... (Heuristic khớp từ khóa)
+
+- Xây dựng pipeline src/data_preprocessing.py (hàm ánh xạ offset mapping)
+
+
+- Fine-tune Kiến trúc 1 (xlm-roberta-base) và Kiến trúc 2 (microsoft/mdeberta-v3-base) qua các seed (42, 123)
+
+
+- Xử lý tối ưu VRAM, batch size, mixed precision (FP16), sửa lỗi CUDA OOM
+
+
+------------------------------------------------------------------
+
+QUY:
+- Chạy notebook 03_zeroshot... (deepset/xlm-roberta-base-squad2) để lấy số liệu thực tế 
+
+- Chạy thử nghiệm Kiến trúc 3 (vinai/phobert-base-v2 hoặc bert-base-multilingual-cased)
+
+- Viết mục (1) tóm  tắt bài báo COLING 2020 
+
+- Xuất file log kết quả và ghi chép nhật ký lỗi kỹ thuật phục vụ mục 4 Kết quả thực nghiệm của báo cáo
+
+- tổng hợp file báo cáo (6. Kết luận)  

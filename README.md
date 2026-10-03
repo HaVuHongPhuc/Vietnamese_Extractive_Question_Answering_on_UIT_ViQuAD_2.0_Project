@@ -9,11 +9,7 @@ Dự án thực hiện giải quyết bài toán trích xuất câu trả lời 
 4. **Giai đoạn 4: Đánh giá & Phân tích**: So sánh kết quả giữa 3 phương pháp, phân tích lỗi và hoàn thiện báo cáo.
 5. **Giai đoạn 5: Demo**: Xây dựng giao diện Gradio để trình diễn khả năng của mô hình tốt nhất.
 
-<<<<<<< HEAD
-## 🛠 Cài đặt & Thiết lập
-=======
 ##Cài đặt & Thiết lập
->>>>>>> 36a04389045fed49fa99b143d018149047918d97
 Để đảm bảo tính đồng nhất và tránh xung đột thư viện, tất cả thành viên bắt buộc phải sử dụng môi trường ảo.
 
 ```bash

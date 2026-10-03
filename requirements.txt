@@ -19,3 +19,6 @@ gradio>=4.0.0
 # Jupyter / Tracking (tùy chọn)
 jupyterlab
 tqdm
+
+# dataset
+datasets
