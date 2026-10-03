@@ -17,7 +17,7 @@ Dự án thực hiện giải quyết bài toán trích xuất câu trả lời 
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/<your-org>/uit-viquad2-extractive-qa.git
+git clone https://github.com/<your-org>/uit-viquad2-extractive-q](https://github.com/HaVuHongPhuc/Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project.git
 cd uit-viquad2-extractive-qa
 
 # 2. Tạo môi trường ảo (Virtual Environment)
