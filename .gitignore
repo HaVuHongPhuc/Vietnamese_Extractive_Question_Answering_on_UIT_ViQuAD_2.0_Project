@@ -1,7 +1,15 @@
 venv/
 .venv/
+.cache/
 __pycache__/
 *.py[c]
 .vscode/
 .idea/
 .env
+AGENT.md
+AGENTS.md
+results/finetune/**/checkpoint-*/
+results/finetune/**/best_model/
+*.safetensors
+*.bin
+*.pt
