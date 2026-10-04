@@ -1,0 +1,13 @@
+{
+  "model": "xlm-roberta",
+  "checkpoint": "xlm-roberta-base",
+  "seed": 42,
+  "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\xlm-roberta\\seed-42\\checkpoint-798",
+  "best_epoch": 3.0,
+  "best_eval_f1": 51.01427730078001,
+  "best_eval_exact_match": 40.272679601468276,
+  "training_seconds": null,
+  "effective_batch_size": 32,
+  "epochs_requested": 3,
+  "bf16": true
+}

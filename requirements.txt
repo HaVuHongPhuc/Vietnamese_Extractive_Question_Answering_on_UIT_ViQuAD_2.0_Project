@@ -1,9 +1,12 @@
 # Deep Learning & Transformers
-torch>=2.0.0
+# PyTorch 2.7+ provides stable CUDA support for NVIDIA Blackwell GPUs such as RTX 5070 Ti.
+torch>=2.7.0
 transformers>=4.38.0
 datasets>=2.18.0
 accelerate>=0.27.0
 evaluate>=0.4.1
+sentencepiece>=0.1.99
+protobuf>=4.25.0
 
 # Metrics & Data Processing
 scikit-learn

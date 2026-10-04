@@ -1,0 +1,32 @@
+├── data/
+│   ├── raw/                       # File raw tải từ Hugging Face
+│   ├── processed/                 # Tập con 5.000 - 8.000 mẫu đã lọc (train.json, dev.json)
+│   └── samples/                   # File ví dụ mẫu để đưa vào báo cáo
+│
+├── notebooks/                     # Chạy thử nghiệm trên Google Colab / Jupyter
+│   ├── 01_eda_data_exploration.ipynb     # Phân tích thống kê dữ liệu
+│   ├── 02_baseline_keyword_overlap.ipynb # Code chạy Baseline (A)
+│   ├── 03_zeroshot_xlmr_squad2.ipynb     # Code chạy Zero-shot (B)
+│   ├── 04_finetune_xlm_roberta.ipynb     # Code fine-tune Model 1
+│   ├── 05_finetune_mdeberta.ipynb        # Code fine-tune Model 2
+│   └── 06_finetune_phobert.ipynb         # Code fine-tune Model 3
+│
+├── src/                           # Code module dùng chung cho cả nhóm
+│   ├── data_preprocessing.py      # Hàm map token offset, tokenize
+│   ├── evaluation.py              # Hàm tính Exact Match (EM) và F1-Score
+│   └── utils.py                   # Các hàm tiện ích (seed, log, save checkpoint)
+│
+├── results/                       # Lưu log và bảng số liệu
+│   ├── baseline_results.csv       # Kết quả Baseline A
+│   ├── zeroshot_results.csv       # Kết quả Zero-shot B
+│   └── finetune_logs/             # File loss, metrics theo từng epoch/seed
+│
+├── demo/                          # Giao diện web (dành cho giai đoạn sau)
+│   └── app.py                     # Ứng dụng Gradio/Streamlit
+│
+├── reports/                       # Thư mục chứa báo cáo và hình ảnh minh họa
+│   ├── images/                    # Biểu đồ phân bố, ảnh kiến trúc
+│   └── TienDo_Lan1_NhomXX.pdf     # File báo cáo tiến độ lần 1
+│
+├── requirements.txt               # Danh sách thư viện (transformers, datasets, evaluate, v.v.)
+└── README.md                      # Hướng dẫn cài đặt và chạy mã nguồn
