@@ -1,0 +1,34 @@
+{
+  "experiment": "Fine-tuned bert-base-multilingual-cased",
+  "config": {
+    "model": "bert-base-multilingual-cased",
+    "max_len": 384,
+    "stride": 128,
+    "epochs": 1,
+    "batch": 8,
+    "grad_accum": 4,
+    "lr": 2e-05,
+    "seed": 42,
+    "delta": 2.0,
+    "device": "cpu",
+    "train_size": 216
+  },
+  "metrics": {
+    "EM_HasAns": 0.22615906520919715,
+    "F1_HasAns": 0.41563671712262185,
+    "EM_NoAns": 99.31093884582258,
+    "F1_NoAns": 99.31093884582258,
+    "EM_overall": 30.38804404824332,
+    "F1_overall": 30.51984378881131,
+    "n_HasAns": 2653,
+    "n_NoAns": 1161,
+    "model": "bert-base-multilingual-cased",
+    "mode": "fine-tuned",
+    "dataset": "UIT-ViQuAD2.0",
+    "epochs": 1,
+    "effective_batch": 32,
+    "train_size": 216,
+    "seed": 42,
+    "delta": 2.0
+  }
+}
