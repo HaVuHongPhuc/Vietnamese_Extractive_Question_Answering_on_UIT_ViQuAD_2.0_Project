@@ -1,0 +1,17 @@
+{
+  "EM_HasAns": 39.65322276667923,
+  "F1_HasAns": 58.754459768485304,
+  "EM_NoAns": 45.65030146425496,
+  "F1_NoAns": 45.65030146425496,
+  "EM_overall": 41.47876245411641,
+  "F1_overall": 54.76549076187507,
+  "n_HasAns": 2653,
+  "n_NoAns": 1161,
+  "model": "deepset/xlm-roberta-base-squad2",
+  "tokenizer": "helenai/deepset-xlm-roberta-base-squad2-ov",
+  "mode": "zero-shot",
+  "dataset": "UIT-ViQuAD2.0",
+  "sample_size": 3814,
+  "max_len": 384,
+  "stride": 128
+}
