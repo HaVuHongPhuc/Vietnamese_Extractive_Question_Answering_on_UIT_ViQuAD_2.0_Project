@@ -1,5 +1,12 @@
 """Fine-tune XLM-RoBERTa or mDeBERTa for Vietnamese extractive QA.
 
+Luồng chính trong file này:
+1. Đọc train/dev JSONL và tải tokenizer.
+2. Tokenize câu hỏi/context, rồi tạo nhãn start/end.
+3. Dùng Trainer fine-tune mô hình cho từng seed.
+4. Gọi src/evaluation.py để giải mã câu trả lời và tính EM/F1.
+5. Lưu mô hình, dự đoán và bảng tổng hợp.
+
 Run from the repository root:
     python src/train_qa.py --model xlm-roberta
     python src/train_qa.py --model mdeberta
@@ -12,13 +19,10 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import os
-import string
 import sys
 import tempfile
 import time
-from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -47,10 +51,12 @@ from transformers import (
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from src.evaluation import decode_predictions, make_compute_metrics
 from src.data_preprocessing import (
     prepare_train_features,
     prepare_validation_features,
 )
+from src.utils import save_json
 
 
 # Dùng đường dẫn tương đối từ thư mục gốc để dễ chuyển dự án sang máy khác.
@@ -67,171 +73,6 @@ MODEL_CHECKPOINTS = {
 # Một seed cố định giúp tái lập một lần chạy. Ba seed cho phép ước lượng
 # độ biến động khi khởi tạo trọng số và xáo trộn thứ tự minibatch.
 DEFAULT_SEEDS = [42, 123, 1024]
-
-# Giới hạn độ dài câu trả lời để decoder không sinh một span quá dài.
-MAX_ANSWER_LENGTH = 30
-N_BEST_TOKENS = 20
-NO_ANSWER_THRESHOLD = 0.0
-
-
-def normalize_text(text: str) -> str:
-    """Chuẩn hóa nhẹ tiếng Việt trước khi tính EM/F1.
-
-    SQuAD tiếng Anh thường bỏ articles (a/an/the), nhưng tiếng Việt không có
-    articles tương đương theo cách đó. Vì vậy ta chỉ viết thường, thay dấu câu
-    bằng khoảng trắng và gom khoảng trắng thừa.
-    """
-    text = text.lower()
-    text = "".join(" " if char in string.punctuation else char for char in text)
-    return " ".join(text.split())
-
-
-def exact_match(prediction: str, references: list[str]) -> float:
-    """Trả 1 nếu dự đoán trùng hoàn toàn với ít nhất một đáp án chuẩn."""
-    normalized_prediction = normalize_text(prediction)
-    return float(any(normalized_prediction == normalize_text(ref) for ref in references))
-
-
-def token_f1(prediction: str, reference: str) -> float:
-    """F1 dựa trên các token cách nhau bởi khoảng trắng.
-
-    Với tiếng Việt, phép tách này tính đơn vị theo âm tiết cách viết; đây là
-    cách đơn giản, nhất quán để bắt đầu và dễ so sánh với baseline dự án.
-    """
-    predicted_tokens = normalize_text(prediction).split()
-    reference_tokens = normalize_text(reference).split()
-
-    # Hai chuỗi rỗng nghĩa là mô hình trả no-answer đúng.
-    if not predicted_tokens and not reference_tokens:
-        return 1.0
-    if not predicted_tokens or not reference_tokens:
-        return 0.0
-
-    # Counter giữ số lần xuất hiện để các token lặp không bị tính quá mức.
-    from collections import Counter
-
-    common = Counter(predicted_tokens) & Counter(reference_tokens)
-    overlap = sum(common.values())
-    if overlap == 0:
-        return 0.0
-
-    precision = overlap / len(predicted_tokens)
-    recall = overlap / len(reference_tokens)
-    return 2 * precision * recall / (precision + recall)
-
-
-def score_prediction(prediction: str, references: list[str]) -> tuple[float, float]:
-    """Lấy EM/F1 cao nhất trong danh sách đáp án chuẩn của một câu hỏi."""
-    if not references:
-        references = [""]
-    em = exact_match(prediction, references)
-    f1 = max(token_f1(prediction, reference) for reference in references)
-    return em, f1
-
-
-def decode_predictions(
-    start_logits: np.ndarray,
-    end_logits: np.ndarray,
-    feature_ids: list[str],
-    feature_offsets: list[list[Any]],
-    examples_by_id: dict[str, dict[str, Any]],
-) -> dict[str, str]:
-    """Đổi dự đoán token thành đoạn văn bản lấy nguyên văn từ context.
-
-    Ý tưởng: với mỗi feature (một cửa sổ context), thử ghép 20 vị trí bắt đầu
-    tốt nhất với 20 vị trí kết thúc tốt nhất. Bỏ các cặp sai thứ tự, quá dài,
-    hoặc nằm ngoài context. Cuối cùng giữ span có tổng logit cao nhất cho mỗi
-    câu hỏi, kể cả khi câu hỏi tạo ra nhiều cửa sổ chồng lấn.
-    """
-    best_answer: dict[str, tuple[float, str]] = {}
-    # CLS đại diện cho no-answer. Lấy score thấp nhất qua các cửa sổ vì một
-    # cửa sổ khác có thể chứa bằng chứng tốt hơn cho câu hỏi có đáp án.
-    best_null_score: dict[str, float] = defaultdict(lambda: math.inf)
-
-    for feature_index, example_id in enumerate(feature_ids):
-        example = examples_by_id[example_id]
-        offsets = feature_offsets[feature_index]
-        starts = start_logits[feature_index]
-        ends = end_logits[feature_index]
-
-        # Mã CLS của cả hai tokenizer đứng trong vị trí đầu của cặp đầu vào.
-        null_score = float(starts[0] + ends[0])
-        best_null_score[example_id] = min(best_null_score[example_id], null_score)
-
-        # Chỉ khảo sát các vị trí có logit cao; giảm mạnh số cặp cần thử.
-        top_starts = np.argsort(starts)[-N_BEST_TOKENS:]
-        top_ends = np.argsort(ends)[-N_BEST_TOKENS:]
-        context = example["context"]
-
-        for start_index in top_starts:
-            for end_index in top_ends:
-                if end_index < start_index:
-                    continue
-                if end_index - start_index + 1 > MAX_ANSWER_LENGTH:
-                    continue
-                if offsets[start_index] is None or offsets[end_index] is None:
-                    continue
-
-                char_start = int(offsets[start_index][0])
-                char_end = int(offsets[end_index][1])
-                if char_end <= char_start:
-                    continue
-
-                answer = context[char_start:char_end]
-                score = float(starts[start_index] + ends[end_index])
-                if score > best_answer.get(example_id, (-math.inf, ""))[0]:
-                    best_answer[example_id] = (score, answer)
-
-    predictions: dict[str, str] = {}
-    for example_id in examples_by_id:
-        answer_score, answer_text = best_answer.get(example_id, (-math.inf, ""))
-        null_score = best_null_score.get(example_id, math.inf)
-
-        # score difference dương nghĩa là CLS/no-answer có điểm cao hơn span.
-        # Ngưỡng cố định 0 để so sánh công bằng giữa các seed và kiến trúc.
-        score_difference = null_score - answer_score
-        predictions[example_id] = (
-            "" if score_difference > NO_ANSWER_THRESHOLD else answer_text
-        )
-    return predictions
-
-
-def make_compute_metrics(
-    feature_ids: list[str],
-    feature_offsets: list[list[Any]],
-    examples_by_id: dict[str, dict[str, Any]],
-):
-    """Tạo hàm metric cho Trainer; metadata offsets được đóng gói trong hàm."""
-
-    def compute_metrics(evaluation_prediction: Any) -> dict[str, float]:
-        # Với mô hình hỏi đáp, predictions là cặp (start_logits, end_logits).
-        predictions = evaluation_prediction.predictions
-        start_logits, end_logits = predictions[0], predictions[1]
-
-        decoded = decode_predictions(
-            start_logits,
-            end_logits,
-            feature_ids,
-            feature_offsets,
-            examples_by_id,
-        )
-
-        em_scores: list[float] = []
-        f1_scores: list[float] = []
-        for example_id, example in examples_by_id.items():
-            references = example["answers"].get("text", [])
-            em, f1 = score_prediction(decoded[example_id], references)
-            em_scores.append(em)
-            f1_scores.append(f1)
-
-        # Nhân 100 để kết quả dễ đọc theo phần trăm như các báo cáo QA.
-        return {
-            "exact_match": 100 * float(np.mean(em_scores)),
-            "f1": 100 * float(np.mean(f1_scores)),
-        }
-
-    return compute_metrics
-
 
 def load_project_data():
     """Đọc hai tệp JSON Lines đã chuẩn bị trong data/processed/."""
@@ -461,9 +302,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
 
     # JSON giúp người mới xem kết quả, seed, checkpoint và thời lượng sau mỗi lần chạy.
     result_file = output_dir / "metrics.json"
-    result_file.write_text(
-        json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    save_json(result_file, result)
 
     # Lưu dự đoán cuối cùng để tiện kiểm tra thủ công và phân tích lỗi.
     predictions = trainer.predict(dev_model_features).predictions
@@ -480,9 +319,8 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
                 "is_impossible": example["is_impossible"],
             }
         )
-    (output_dir / "predictions.json").write_text(
-        json.dumps(prediction_rows, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    prediction_file = output_dir / "predictions.json"
+    save_json(prediction_file, prediction_rows)
 
     print(f"Kết quả seed {seed}: EM={result['best_eval_exact_match']:.2f}, F1={result['best_eval_f1']:.2f}")
     return result
@@ -518,17 +356,10 @@ def run_experiment(models: list[str], seeds: list[int]) -> None:
 
         # Mỗi notebook kiến trúc có file summary riêng để đọc kết quả độc lập.
         model_summary_path = RESULTS_DIR / model_name / "summary.json"
-        model_summary_path.parent.mkdir(parents=True, exist_ok=True)
-        model_summary_path.write_text(
-            json.dumps(summary["models"][model_name], ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
+        save_json(model_summary_path, summary["models"][model_name])
 
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     summary_path = RESULTS_DIR / "summary.json"
-    summary_path.write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    save_json(summary_path, summary)
     print("\nTổng hợp (F1/EM theo phần trăm):")
     for model_name, scores in summary["models"].items():
         print(

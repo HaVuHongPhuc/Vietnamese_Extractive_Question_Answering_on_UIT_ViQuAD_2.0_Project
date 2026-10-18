@@ -3,6 +3,33 @@ Module: data_preprocessing.py
 Chức năng: Tiền xử lý dữ liệu và ánh xạ vị trí đáp án (Offset Mapping)
 cho bài toán Extractive QA (Hỗ trợ câu hỏi unanswerable).
 """
+
+"""" 
+LÝ THUYẾT CẦN NHỚ:
+src/data_preprocessing.py là bước chuẩn bị dữ liệu trước khi đưa câu hỏi và context
+vào mô hình QA. Nó không tự huấn luyện mô hình; train_qa.py gọi các hàm trong
+file này để chuyển dữ liệu sang dạng mô hình cần.
+ -Luồng chính:
+    Dữ liệu gốc
+        + tokenizer chia câu hỏi/context thành token
+        + data_preprocessing.py tạo feature và nhãn
+        + mô hình nhận feature để train hoặc dự đoán
+
+  -Hai hàm trong file có vai trò khác nhau:
+        + prepare_train_features chuẩn bị dữ liệu huấn luyện. Đáp án trong dataset được ghi bằng
+        vị trí ký tự, nhưng mô hình cần vị trí token. Hàm dùng offset_mapping để đổi vị trí
+        ký tự đáp án thành start_positions và end_positions. Nếu context dài, hàm chia nó thành
+        các cửa sổ có phần chồng lặp. Với câu không có đáp án, hoặc cửa sổ hiện tại không chứa
+        đáp án, nhãn được gán về token [CLS].
+
+        + prepare_validation_features chuẩn bị validation/test để dự đoán. Hàm tạo các cửa sổ
+        tương tự, đồng thời giữ example_id và offset của token trong context. Các thông tin
+        này giúp bước sau đổi dự đoán của mô hình từ vị trí token về đoạn văn gốc để chấm điểm.
+
+Ví dụ, dataset nói đáp án "1906" bắt đầu ở ký tự 23. Hàm huấn luyện tìm token nào bao
+phủ khoảng ký tự [23, 27), rồi ghi chỉ số token đó làm nhãn cho mô hình học.
+
+"""
 from typing import Dict, Any
 def prepare_train_features(
     examples: Dict[str, Any],
@@ -162,7 +189,7 @@ def prepare_validation_features(
 """
 1. Vấn đề gốc rễ: Sự lệch pha giữa Ký tự và TokenTrong file dữ liệu gốc (train.json),
 câu trả lời được lưu theo vị trí ký tự (Character index):Đoạn văn: "Phạm Văn Đồng sinh năm 1906 tại
-Quảng Ngãi..."Câu hỏi: "Phạm Văn Đồng sinh năm nào?"Đáp án: "1906", answer_start = 14 (nghĩa là
+Quảng Ngãi..."Câu hỏi: "Phạm Văn Đồng sinh năm nào?"Đáp án: "1906", answer_start = 23 (nghĩa là
 đếm từ chữ P đầu tiên đến chữ số 1 của năm 1906 vừa đúng 14 ký tự).Tuy nhiên,
 mô hình AI (Transformer) không đọc từng ký tự. Khi văn bản đi vào mô hình, bộ phân tách
 từ (Tokenizer) sẽ băm đoạn văn thành các Token (mảnh từ):
