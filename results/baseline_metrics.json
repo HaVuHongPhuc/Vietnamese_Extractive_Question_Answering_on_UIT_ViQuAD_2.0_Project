@@ -1,0 +1,17 @@
+{
+  "all": {
+    "count": 3814,
+    "EM_percent": 1.13,
+    "F1_percent": 22.48
+  },
+  "answerable": {
+    "count": 2653,
+    "EM_percent": 1.62,
+    "F1_percent": 32.32
+  },
+  "unanswerable": {
+    "count": 1161,
+    "EM_percent": 0.0,
+    "F1_percent": 0.0
+  }
+}

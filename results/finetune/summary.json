@@ -1,0 +1,54 @@
+{
+  "runs": [
+    {
+      "model": "mdeberta",
+      "checkpoint": "microsoft/mdeberta-v3-base",
+      "seed": 42,
+      "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\mdeberta\\seed-42\\checkpoint-374",
+      "best_epoch": 1.0,
+      "best_eval_f1": 17.53238846771348,
+      "best_eval_exact_match": 17.147351861562665,
+      "training_seconds": 807.9,
+      "effective_batch_size": 32,
+      "epochs_requested": 3,
+      "bf16": true
+    },
+    {
+      "model": "mdeberta",
+      "checkpoint": "microsoft/mdeberta-v3-base",
+      "seed": 123,
+      "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\mdeberta\\seed-123\\checkpoint-1122",
+      "best_epoch": 3.0,
+      "best_eval_f1": 17.597565605668205,
+      "best_eval_exact_match": 17.435762978500264,
+      "training_seconds": 893.61,
+      "effective_batch_size": 32,
+      "epochs_requested": 3,
+      "bf16": true
+    },
+    {
+      "model": "mdeberta",
+      "checkpoint": "microsoft/mdeberta-v3-base",
+      "seed": 1024,
+      "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\mdeberta\\seed-1024\\checkpoint-748",
+      "best_epoch": 2.0,
+      "best_eval_f1": 30.311770033846592,
+      "best_eval_exact_match": 30.309386470896698,
+      "training_seconds": 1065.23,
+      "effective_batch_size": 32,
+      "epochs_requested": 3,
+      "bf16": true
+    }
+  ],
+  "models": {
+    "mdeberta": {
+      "best_seed": 1024,
+      "best_f1": 30.311770033846592,
+      "best_exact_match": 30.309386470896698,
+      "mean_f1": 21.81390803574276,
+      "std_f1": 6.0089547576341396,
+      "mean_exact_match": 21.630833770319878,
+      "std_exact_match": 6.13779292447539
+    }
+  }
+}

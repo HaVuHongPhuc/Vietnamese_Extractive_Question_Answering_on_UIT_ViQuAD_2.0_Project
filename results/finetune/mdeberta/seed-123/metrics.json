@@ -1,0 +1,13 @@
+{
+  "model": "mdeberta",
+  "checkpoint": "microsoft/mdeberta-v3-base",
+  "seed": 123,
+  "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\mdeberta\\seed-123\\checkpoint-1122",
+  "best_epoch": 3.0,
+  "best_eval_f1": 17.597565605668205,
+  "best_eval_exact_match": 17.435762978500264,
+  "training_seconds": 893.61,
+  "effective_batch_size": 32,
+  "epochs_requested": 3,
+  "bf16": true
+}

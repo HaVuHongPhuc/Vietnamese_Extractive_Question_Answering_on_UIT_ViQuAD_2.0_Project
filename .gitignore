@@ -13,3 +13,4 @@ results/finetune/**/best_model/
 *.safetensors
 *.bin
 *.pt
+*.docx
