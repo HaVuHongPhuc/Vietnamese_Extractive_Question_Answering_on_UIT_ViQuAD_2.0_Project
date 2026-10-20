@@ -13,7 +13,7 @@
 ## 2. A — Baseline khớp từ khóa
 
 - [x] Chạy baseline Jaccard trong notebook 02 trên dev và lưu metrics/predictions.
-- [ ] Đối chiếu yêu cầu rubric: nếu cần baseline TF-IDF hoặc mô hình truyền thống scikit-learn, bổ sung và đánh giá baseline đó.
+- [x] Đối chiếu rubric và bổ sung baseline TF-IDF + Logistic Regression bằng scikit-learn; đánh giá cùng Jaccard trên 3.814 mẫu dev, tính EM/F1 và metric phân loại no-answer. Kết quả lưu tại results/baseline_comparison_metrics.json.
 
 ## 3. B — Zero-shot
 
@@ -37,7 +37,7 @@
 
 - [ ] Đánh giá baseline, Zero-shot và các kiến trúc fine-tune trên cùng tập test đã khóa.
 - [ ] Báo cáo EM và F1 trên test cho từng phương pháp/mô hình.
-- [ ] Báo cáo riêng khả năng phát hiện câu không có đáp án: accuracy và confusion matrix cho từng mô hình.
+- [ ] Bổ sung metric phát hiện câu không có đáp án: so sánh `prediction_text == ""` với `is_impossible`, rồi tính accuracy và confusion matrix cho từng mô hình. Hiện decoder đã dự đoán chuỗi rỗng bằng điểm CLS/ngưỡng 0, nhưng `src/evaluation.py` và `metrics.json` chỉ báo cáo EM/F1.
 - [ ] Phân loại ít nhất 3 nhóm lỗi và so sánh lỗi giữa các mô hình.
 - [ ] Chọn mô hình demo dựa trên kết quả test và độ ổn định qua các seed.
 
@@ -65,5 +65,5 @@
 
 1. Xác nhận các checkpoint fine-tune hiện có được huấn luyện từ đúng `train.json` mới nhất (8.000 mẫu; 5.417/2.583); nếu dùng bản train cũ, chạy lại các seed bị ảnh hưởng.
 2. Hoàn thành PhoBERT với ít nhất 3 seed theo yêu cầu đồ án.
-3. Chạy đánh giá cuối trên `test.json` đã khóa; báo cáo EM, F1 và khả năng phát hiện câu không có đáp án.
+3. Bổ sung và kiểm tra accuracy/confusion matrix cho nhãn không có đáp án trên dev; sau khi chốt cách tính, chạy đánh giá cuối trên `test.json` và báo cáo EM, F1 cùng các metric phát hiện no-answer.
 4. Phân tích lỗi, hoàn thiện demo, báo cáo và slide.
