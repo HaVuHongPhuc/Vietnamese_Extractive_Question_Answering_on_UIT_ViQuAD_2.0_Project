@@ -1,0 +1,36 @@
+{
+  "split": "dev",
+  "count": 3814,
+  "Jaccard": {
+    "EM_percent": 1.13,
+    "F1_percent": 22.48,
+    "answerability_accuracy_percent": 69.56,
+    "unanswerable_recall_percent": 0.0,
+    "confusion_matrix": [
+      [
+        2653,
+        0
+      ],
+      [
+        1161,
+        0
+      ]
+    ]
+  },
+  "TF-IDF + Logistic Regression": {
+    "EM_percent": 7.87,
+    "F1_percent": 23.14,
+    "answerability_accuracy_percent": 58.36,
+    "unanswerable_recall_percent": 23.43,
+    "confusion_matrix": [
+      [
+        1954,
+        699
+      ],
+      [
+        889,
+        272
+      ]
+    ]
+  }
+}

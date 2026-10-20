@@ -14,3 +14,4 @@ results/finetune/**/best_model/
 *.bin
 *.pt
 *.docx
+checklist.md

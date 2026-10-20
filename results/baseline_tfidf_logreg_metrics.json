@@ -1,0 +1,29 @@
+{
+  "model": "TF-IDF + LogisticRegression + TF-IDF sentence ranking",
+  "split": "dev",
+  "count": 3814,
+  "EM_percent": 7.87,
+  "F1_percent": 23.14,
+  "answerability_accuracy_percent": 58.36,
+  "unanswerable_recall_percent": 23.43,
+  "confusion_matrix_labels": [
+    "answerable_False",
+    "unanswerable_True"
+  ],
+  "confusion_matrix": [
+    [
+      1954,
+      699
+    ],
+    [
+      889,
+      272
+    ]
+  ],
+  "random_state": 42,
+  "max_features": 50000,
+  "ngram_range": [
+    1,
+    2
+  ]
+}
