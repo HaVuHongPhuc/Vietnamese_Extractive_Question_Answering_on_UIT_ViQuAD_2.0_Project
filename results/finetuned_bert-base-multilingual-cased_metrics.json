@@ -1,0 +1,18 @@
+{
+  "EM_HasAns": 0.0,
+  "F1_HasAns": 0.0,
+  "EM_NoAns": 100.0,
+  "F1_NoAns": 100.0,
+  "EM_overall": 30.44048243314106,
+  "F1_overall": 30.44048243314106,
+  "n_HasAns": 2653,
+  "n_NoAns": 1161,
+  "model": "bert-base-multilingual-cased",
+  "mode": "fine-tuned",
+  "dataset": "UIT-ViQuAD2.0",
+  "epochs": 1,
+  "effective_batch": 32,
+  "train_size": 8534,
+  "seed": 42,
+  "delta": 2.0
+}
