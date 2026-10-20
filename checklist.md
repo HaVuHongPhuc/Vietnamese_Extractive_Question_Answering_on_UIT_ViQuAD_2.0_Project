@@ -4,10 +4,11 @@
 
 ## 1. Dữ liệu và EDA
 
-- [x] Chốt `train.json` làm tập train chính (8.000 mẫu; 5.382 answerable, 2.618 unanswerable theo lần kiểm tra gần nhất).
+- [x] Chốt `train.json` làm tập train chính (8.000 mẫu; 5.417 có đáp án, 2.583 không có đáp án theo lần chạy Notebook 01 gần nhất).
 - [x] Có `dev.json` gồm 3.814 mẫu.
-- [ ] Chạy lại notebook 01 từ đầu để EDA và biểu đồ phản ánh đúng `train.json` đã chốt.
-- [ ] Xuất tập test riêng từ dataset gốc; ghi lại cách tạo và kiểm tra không trùng với train/dev.
+- [x] Chạy lại notebook 01 từ đầu để EDA và biểu đồ phản ánh đúng `train.json` đã chốt.
+- [x] Xuất nguyên split test gốc thành `test.json` (7.301 mẫu); kiểm tra JSONL hợp lệ và số dòng train/dev/test lần lượt là 8.000/3.814/7.301.
+- [x] Đã audit nội dung trùng: không có mẫu QA chính xác trùng train/dev hoặc dev/test; có 2 mẫu QA trùng train/test, 110 nhóm QA lặp trong test; context dùng chung giữa train/test là 411 và dev/test là 134. Giữ nguyên `test.json` gốc, không âm thầm loại mẫu. Ghi nhận các overlap này khi báo cáo kết quả.
 
 ## 2. A — Baseline khớp từ khóa
 
@@ -56,12 +57,13 @@
 
 ## Ghi chú để tránh nhầm dữ liệu/kết quả
 
-- Notebook 01 hiện chỉ xuất `train.json`; các notebook tiền xử lý và fine-tuning cần đọc cùng file này. Tập con JSONL cũ đã được xóa.
+- Notebook 01 tạo `train.json` từ tập con train và xuất split test gốc thành `test.json`. `dev.json` đã có sẵn với 3.814 mẫu từ validation. Các file dùng JSON Lines; EDA được tính trên tập train con.
 - Các kết quả XLM-RoBERTa và mDeBERTa hiện có được ghi nhận là đã chạy trên `train.json` và `dev.json`.
 - Các cell fine-tune BERT thử nghiệm trong notebook 03 không thay thế yêu cầu Zero-shot hoặc kiến trúc PhoBERT.
 
 ## Việc tiếp theo
 
-1. Chạy lại notebook 01 để EDA khớp với `train.json`.
-2. Tạo và khóa tập test riêng.
-3. Hoàn thành PhoBERT và các phần đánh giá/phân tích/báo cáo còn lại.
+1. Xác nhận các checkpoint fine-tune hiện có được huấn luyện từ đúng `train.json` mới nhất (8.000 mẫu; 5.417/2.583); nếu dùng bản train cũ, chạy lại các seed bị ảnh hưởng.
+2. Hoàn thành PhoBERT với ít nhất 3 seed theo yêu cầu đồ án.
+3. Chạy đánh giá cuối trên `test.json` đã khóa; báo cáo EM, F1 và khả năng phát hiện câu không có đáp án.
+4. Phân tích lỗi, hoàn thiện demo, báo cáo và slide.
