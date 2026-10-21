@@ -1,0 +1,14 @@
+{
+  "model": "deepset/xlm-roberta-base-squad2",
+  "tokenizer": "helenai/deepset-xlm-roberta-base-squad2-ov",
+  "mode": "zero-shot",
+  "dataset": "UIT-ViQuAD2.0",
+  "split": "dev",
+  "sample_size": 3814,
+  "max_len": 384,
+  "stride": 128,
+  "seed": 42,
+  "device": "cuda",
+  "torch_version": "2.14.1+cu130",
+  "transformers_version": "5.18.0"
+}
