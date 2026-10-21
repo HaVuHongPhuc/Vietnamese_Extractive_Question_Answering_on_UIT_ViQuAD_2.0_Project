@@ -18,8 +18,8 @@
 ## 3. B — Zero-shot
 
 - [x] Notebook 03 có mã Zero-shot và kết quả trên dev được lưu trong `results/`.
-- [ ] Chạy lại từ kernel sạch để xác nhận kết quả tái lập và lưu cấu hình/métrics cuối cùng.
-- [ ] Tách hoặc ghi nhãn rõ các cell fine-tune thử nghiệm trong notebook 03 để không nhầm chúng là Zero-shot.
+- [x] Chạy lại từ kernel sạch trên dev đủ 3.814 mẫu, inference errors = 0; metrics khớp lần chạy trước; đã lưu zeroshot_config.json, zeroshot_metrics.json và zeroshot_predictions.json.
+- [x] Tách hoặc ghi nhãn rõ các cell fine-tune thử nghiệm trong notebook 03 để không nhầm chúng là Zero-shot.
 
 ## 4. Tiền xử lý dữ liệu cho QA
 

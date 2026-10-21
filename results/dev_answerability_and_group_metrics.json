@@ -1,0 +1,287 @@
+{
+  "split": "dev",
+  "sample_count": 3814,
+  "no_answer_rule": "prediction_text == empty string",
+  "confusion_matrix_order": {
+    "rows": [
+      "true_HasAns",
+      "true_NoAns"
+    ],
+    "columns": [
+      "predicted_HasAns",
+      "predicted_NoAns"
+    ]
+  },
+  "methods": {
+    "Jaccard": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 1.6208066339992462,
+          "F1_percent": 32.31948586075735
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 0.0,
+          "F1_percent": 0.0
+        }
+      },
+      "answerability_accuracy_percent": 69.55951756685894,
+      "no_answer_recall_percent": 0.0,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2653,
+          0
+        ],
+        [
+          1161,
+          0
+        ]
+      ]
+    },
+    "TF-IDF + Logistic Regression": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 1.0554089709762533,
+          "F1_percent": 23.027043007671768
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 23.42807924203273,
+          "F1_percent": 23.42807924203273
+        }
+      },
+      "answerability_accuracy_percent": 58.36392239119035,
+      "no_answer_recall_percent": 23.42807924203273,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1954,
+          699
+        ],
+        [
+          889,
+          272
+        ]
+      ]
+    },
+    "Zero-shot": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 39.65322276667923,
+          "F1_percent": 58.929685279849366
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 45.65030146425495,
+          "F1_percent": 45.65030146425495
+        }
+      },
+      "answerability_accuracy_percent": 68.58940744625066,
+      "no_answer_recall_percent": 45.65030146425495,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2086,
+          567
+        ],
+        [
+          631,
+          530
+        ]
+      ]
+    },
+    "XLM-R seed 42": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 43.874858650584244,
+          "F1_percent": 59.31717060881078
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 32.041343669250644,
+          "F1_percent": 32.041343669250644
+        }
+      },
+      "answerability_accuracy_percent": 64.2370214997378,
+      "no_answer_recall_percent": 32.041343669250644,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2078,
+          575
+        ],
+        [
+          789,
+          372
+        ]
+      ]
+    },
+    "mDeBERTa seed 42": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 0.0,
+          "F1_percent": 0.5535354752579016
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 56.33074935400517,
+          "F1_percent": 56.33074935400517
+        }
+      },
+      "answerability_accuracy_percent": 49.213424226533824,
+      "no_answer_recall_percent": 47.459086993970715,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1326,
+          1327
+        ],
+        [
+          610,
+          551
+        ]
+      ]
+    },
+    "XLM-R seed 123": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 34.640030154542025,
+          "F1_percent": 45.860737431582464
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 55.29715762273902,
+          "F1_percent": 55.29715762273902
+        }
+      },
+      "answerability_accuracy_percent": 56.92186680650236,
+      "no_answer_recall_percent": 55.29715762273902,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1529,
+          1124
+        ],
+        [
+          519,
+          642
+        ]
+      ]
+    },
+    "mDeBERTa seed 123": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 0.0,
+          "F1_percent": 0.2326103354762671
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 57.27820844099914,
+          "F1_percent": 57.27820844099914
+        }
+      },
+      "answerability_accuracy_percent": 49.213424226533824,
+      "no_answer_recall_percent": 47.459086993970715,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1326,
+          1327
+        ],
+        [
+          610,
+          551
+        ]
+      ]
+    },
+    "XLM-R seed 1024": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 38.145495665284585,
+          "F1_percent": 50.88961227768362
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 45.47803617571059,
+          "F1_percent": 45.47803617571059
+        }
+      },
+      "answerability_accuracy_percent": 61.221814368117464,
+      "no_answer_recall_percent": 45.47803617571059,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1807,
+          846
+        ],
+        [
+          633,
+          528
+        ]
+      ]
+    },
+    "mDeBERTa seed 1024": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 0.0,
+          "F1_percent": 0.003426652503169653
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 99.5693367786391,
+          "F1_percent": 99.5693367786391
+        }
+      },
+      "answerability_accuracy_percent": 30.702674357629785,
+      "no_answer_recall_percent": 99.5693367786391,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          15,
+          2638
+        ],
+        [
+          5,
+          1156
+        ]
+      ]
+    }
+  }
+}
