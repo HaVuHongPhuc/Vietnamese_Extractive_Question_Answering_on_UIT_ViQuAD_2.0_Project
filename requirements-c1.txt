@@ -1,0 +1,16 @@
+# Challenge 1: encoder fine-tuning and local notebooks on Python 3.12.
+# Install CUDA PyTorch first using scripts/setup_c1.ps1.
+# Keep the existing QA requirements.txt and .venv unchanged.
+# Environment location on this machine: C:\Users\havuh\venvs\rmit-c1.
+torch==2.14.1
+transformers==4.57.6
+accelerate>=1.0,<2
+datasets>=3,<6
+numpy>=1.26,<3
+pandas>=2.2,<4
+scikit-learn>=1.5,<2
+sentencepiece>=0.2,<0.3
+protobuf>=4.25,<7
+tqdm>=4.66,<5
+ipykernel>=6.29,<8
+jupyterlab>=4,<5

@@ -1,5 +1,6 @@
 venv/
 .venv/
+.venv-c1/
 .cache/
 __pycache__/
 *.py[c]
