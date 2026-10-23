@@ -35,6 +35,7 @@
 
 ## 6. Đánh giá cuối cùng và phân tích lỗi
 
+- [ ] Accuracy của baseline A  (notebook 02)
 - [ ] Đánh giá baseline, Zero-shot và các kiến trúc fine-tune trên cùng tập test đã khóa.
 - [ ] Báo cáo EM và F1 trên test cho từng phương pháp/mô hình.
 - [ ] Bổ sung metric phát hiện câu không có đáp án: so sánh `prediction_text == ""` với `is_impossible`, rồi tính accuracy và confusion matrix cho từng mô hình. Hiện decoder đã dự đoán chuỗi rỗng bằng điểm CLS/ngưỡng 0, nhưng `src/evaluation.py` và `metrics.json` chỉ báo cáo EM/F1.
