@@ -13,5 +13,8 @@
   "dataset": "UIT-ViQuAD2.0",
   "sample_size": 3814,
   "max_len": 384,
-  "stride": 128
+  "stride": 128,
+  "Accuracy_overall": 41.47876245411641,
+  "Accuracy_HasAns": 39.65322276667923,
+  "Accuracy_NoAns": 45.65030146425496
 }
