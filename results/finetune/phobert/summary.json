@@ -1,0 +1,85 @@
+{
+  "model": "phobert",
+  "checkpoint": "vinai/phobert-base-v2",
+  "seeds": [
+    42,
+    123,
+    1024
+  ],
+  "runs": [
+    {
+      "model": "phobert",
+      "checkpoint": "vinai/phobert-base-v2",
+      "seed": 42,
+      "max_length": 256,
+      "doc_stride": 64,
+      "exact_match": 44.546407970634505,
+      "f1": 55.9485849265159,
+      "answerable_em": 48.13418771202412,
+      "answerable_f1": 64.52616016197949,
+      "unanswerable_accuracy": 36.3479758828596,
+      "training_seconds": 804.42,
+      "bf16": true,
+      "device": "cuda",
+      "num_epochs": 3,
+      "train_features_used": 8994
+    },
+    {
+      "model": "phobert",
+      "checkpoint": "vinai/phobert-base-v2",
+      "seed": 123,
+      "max_length": 256,
+      "doc_stride": 64,
+      "exact_match": 44.38909281594127,
+      "f1": 56.16257586781834,
+      "answerable_em": 48.66189219751225,
+      "answerable_f1": 65.58766089704453,
+      "unanswerable_accuracy": 34.62532299741602,
+      "training_seconds": 400.85,
+      "bf16": true,
+      "device": "cuda",
+      "num_epochs": 3,
+      "train_features_used": 8994
+    },
+    {
+      "model": "phobert",
+      "checkpoint": "vinai/phobert-base-v2",
+      "seed": 1024,
+      "max_length": 256,
+      "doc_stride": 64,
+      "exact_match": 44.23177766124803,
+      "f1": 56.499932097263994,
+      "answerable_em": 48.96343761779118,
+      "answerable_f1": 66.60035469994907,
+      "unanswerable_accuracy": 33.41946597760551,
+      "training_seconds": 404.19,
+      "bf16": true,
+      "device": "cuda",
+      "num_epochs": 3,
+      "train_features_used": 8994
+    }
+  ],
+  "metrics_mean_std": {
+    "exact_match": {
+      "mean": 44.38909281594127,
+      "std": 0.12844728593514393
+    },
+    "f1": {
+      "mean": 56.20369763053274,
+      "std": 0.22695693453389926
+    },
+    "answerable_em": {
+      "mean": 48.58650584244251,
+      "std": 0.3427109359715008
+    },
+    "answerable_f1": {
+      "mean": 65.5713919196577,
+      "std": 0.8468645129946957
+    },
+    "unanswerable_accuracy": {
+      "mean": 34.79758828596038,
+      "std": 1.2017484660612305
+    }
+  },
+  "best_seed": 1024
+}

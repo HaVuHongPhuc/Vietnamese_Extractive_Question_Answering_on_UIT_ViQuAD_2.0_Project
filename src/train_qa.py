@@ -15,6 +15,7 @@ Run from the repository root:
 The comments and docstrings are intentionally detailed for NLP learners.
 """
 
+# Bước 1: Khai báo module và cache
 from __future__ import annotations
 
 import argparse
@@ -46,6 +47,7 @@ from transformers import (
     set_seed,
 )
 
+# Bước 2: Chuẩn bị import nội bộ và constants
 # Khi script được gọi trực tiếp bằng `python src/train_qa.py`, Python mặc định
 # đưa thư mục src/ lên sys.path. Thêm thư mục gốc để import `src.*` ổn định.
 if str(PROJECT_ROOT) not in sys.path:
@@ -74,6 +76,7 @@ MODEL_CHECKPOINTS = {
 # độ biến động khi khởi tạo trọng số và xáo trộn thứ tự minibatch.
 DEFAULT_SEEDS = [42, 123, 1024]
 
+# Bước 3: Đọc train/dev JSONL
 def load_project_data():
     """Đọc hai tệp JSON Lines đã chuẩn bị trong data/processed/."""
     for path in (TRAIN_FILE, DEV_FILE):
@@ -91,11 +94,88 @@ def load_project_data():
     return loaded["train"], loaded["validation"]
 
 
+def print_preprocessing_summary(
+    train_examples: Any,
+    dev_examples: Any,
+    train_features: Any,
+    dev_features: Any,
+    tokenizer: Any,
+    training_args: TrainingArguments,
+) -> None:
+    """In vài thông tin để kiểm tra tiền xử lý trước khi bắt đầu fine-tune."""
+    print("\n--- Tóm tắt dữ liệu trước khi huấn luyện ---")
+    print(f"Số mẫu train gốc: {len(train_examples):,}")
+    print(f"Số mẫu dev gốc: {len(dev_examples):,}")
+    print(f"Số train features sau tiền xử lý: {len(train_features):,}")
+    print(f"Số dev features sau tiền xử lý: {len(dev_features):,}")
+
+    train_batch_size = training_args.per_device_train_batch_size
+    accumulation_steps = training_args.gradient_accumulation_steps
+    effective_batch_size_per_device = train_batch_size * accumulation_steps
+
+    print("\nCấu hình huấn luyện:")
+    print(f"Batch train trên mỗi GPU: {train_batch_size}")
+    print(f"Số bước tích lũy gradient: {accumulation_steps}")
+    print(
+        "Batch hiệu dụng trên mỗi GPU: "
+        f"{train_batch_size} x {accumulation_steps} = "
+        f"{effective_batch_size_per_device}"
+    )
+    print(f"Batch đánh giá trên mỗi GPU: {training_args.per_device_eval_batch_size}")
+    print(f"Số epoch: {training_args.num_train_epochs}")
+    print(f"Learning rate: {training_args.learning_rate}")
+    print(f"Dùng BF16: {training_args.bf16}")
+    print(f"Dùng FP16: {training_args.fp16}")
+
+    if len(train_features) == 0:
+        print("\nKhông có train feature để xem nhãn.")
+        return
+
+    # Chọn một feature có span đáp án nếu tìm thấy; nếu không, xem feature đầu.
+    diagnostic_feature_index = 0
+    found_answer_span = False
+
+    for feature_index in range(len(train_features)):
+        feature = train_features[feature_index]
+        input_ids = feature["input_ids"]
+        cls_index = input_ids.index(tokenizer.cls_token_id)
+        start_position = int(feature["start_positions"])
+        end_position = int(feature["end_positions"])
+
+        if start_position != cls_index or end_position != cls_index:
+            diagnostic_feature_index = feature_index
+            found_answer_span = True
+            break
+
+    feature = train_features[diagnostic_feature_index]
+    input_ids = feature["input_ids"]
+    token_strings = tokenizer.convert_ids_to_tokens(input_ids)
+    cls_index = input_ids.index(tokenizer.cls_token_id)
+    start_position = int(feature["start_positions"])
+    end_position = int(feature["end_positions"])
+
+    print("\nVí dụ nhãn của một train feature:")
+    print(f"Feature index: {diagnostic_feature_index}")
+    print(f"Start position: {start_position}")
+    print(f"End position: {end_position}")
+
+    if start_position == cls_index and end_position == cls_index:
+        print("Nhãn trỏ về CLS: mẫu không có đáp án hoặc cửa sổ này không chứa span.")
+    elif found_answer_span:
+        span_tokens = token_strings[start_position : end_position + 1]
+        span_text = tokenizer.decode(
+            input_ids[start_position : end_position + 1],
+            skip_special_tokens=True,
+        )
+        print(f"Token được gán nhãn: {span_tokens}")
+        print(f"Đoạn giải mã từ nhãn: {span_text}")
+
+
 def make_training_arguments(output_dir: Path, seed: int) -> TrainingArguments:
     """Tạo cấu hình Trainer, dùng batch vật lý nhỏ để vừa VRAM 16 GB.
 
-    Batch 8 x gradient accumulation 4 tương đương batch hiệu dụng 32. Tích lũy
-    gradient cộng dồn đạo hàm qua 4 batch trước khi cập nhật trọng số một lần.
+    Batch vật lý 4 x gradient accumulation 8 tương đương batch hiệu dụng 32
+    trên một GPU. Gradient của 8 batch được cộng dồn trước một lần cập nhật trọng số.
     """
     if not torch.cuda.is_available():
         raise RuntimeError(
@@ -165,6 +245,7 @@ def find_completed_run_state(output_dir: Path) -> dict[str, Any] | None:
     return None
 
 
+# Bước 4: Đặt seed và tránh train lặp
 def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any]:
     """Huấn luyện một checkpoint với một seed và lưu metric/checkpoint."""
     output_dir = RESULTS_DIR / model_name / f"seed-{seed}"
@@ -183,11 +264,13 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
 
     train_examples, dev_examples = load_project_data()
 
+    # Bước 5: Nạp tokenizer Fast
     # Fast tokenizer cung cấp offset mapping cần thiết để khôi phục span văn bản.
     tokenizer = AutoTokenizer.from_pretrained(checkpoint, use_fast=True)
     if not tokenizer.is_fast:
         raise RuntimeError(f"Checkpoint {checkpoint} không cung cấp Fast Tokenizer.")
 
+    # Bước 6: Tạo train features
     # Ánh xạ từng câu trả lời từ ký tự trong context thành chỉ số token.
     train_features = train_examples.map(
         lambda batch: prepare_train_features(batch, tokenizer),
@@ -196,6 +279,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
         desc="Đổi train examples thành token features",
     )
 
+    # Bước 7: Tạo dev metadata và map theo ID
     # Validation cần metadata (ID và offsets) để giải mã dự đoán về ký tự.
     dev_features_with_metadata = dev_examples.map(
         lambda batch: prepare_validation_features(batch, tokenizer),
@@ -214,6 +298,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
         for example in dev_examples
     }
 
+    # Bước 8: Tạo nhãn dev cho Trainer
     # Trainer cũng cần nhãn start/end khi evaluate để gọi compute_metrics.
     # Tạo nhãn validation từ đáp án chuẩn giống cách đã làm cho train; metadata
     # ID/offset ở trên vẫn dùng để tính EM/F1 trên văn bản gốc, không phải logits.
@@ -225,6 +310,19 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
     )
     dev_model_features = dev_features_with_labels
 
+    # Bước 9: In tóm tắt tiền xử lý
+    # Tạo cấu hình một lần để vừa in ra vừa truyền nguyên cấu hình vào Trainer.
+    training_args = make_training_arguments(output_dir, seed)
+    print_preprocessing_summary(
+        train_examples,
+        dev_examples,
+        train_features,
+        dev_model_features,
+        tokenizer,
+        training_args,
+    )
+
+    # Bước 10: Tạo hoặc khôi phục model
     # Nếu quá trình train hoàn tất nhưng dừng lúc ghi summary, tái dùng best_model.
     best_model_dir = output_dir / "best_model"
     recovered_state = find_completed_run_state(output_dir)
@@ -234,6 +332,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
     else:
         # Mỗi seed khởi tạo mới từ checkpoint gốc, không kế thừa seed trước.
         model = AutoModelForQuestionAnswering.from_pretrained(checkpoint)
+    # Bước 11: Tạo callback metrics, collator và Trainer
     compute_metrics = make_compute_metrics(
         feature_ids, feature_offsets, examples_by_id
     )
@@ -251,7 +350,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
 
     trainer = Trainer(
         model=model,
-        args=make_training_arguments(output_dir, seed),
+        args=training_args,
         train_dataset=train_features,
         eval_dataset=dev_model_features,
         data_collator=data_collator,
@@ -259,6 +358,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
         **tokenizer_argument,
     )
 
+    # Bước 12: Fine tune và evaluate mỗi epoch
     # Huấn luyện: Trainer tính loss start/end, lan truyền gradient và cập nhật trọng số.
     if recovered_state and best_model_dir.exists():
         # Trường hợp này chỉ khôi phục phần metrics/predictions sau khi train đủ epoch.
@@ -269,6 +369,8 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
         training_seconds = time.time() - started_at
 
     # load_best_model_at_end=True đã nạp lại checkpoint có F1 dev cao nhất.
+    # Bước 13: Decode dự đoán thành câu trả lời
+    # Bước 14: Tính EM/F1 trên mẫu gốc
     final_metrics = trainer.evaluate()
     if not recovered_state:
         trainer.save_model(str(best_model_dir))
@@ -282,6 +384,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
     scored_epochs = [row for row in history if "eval_f1" in row]
     best_epoch_row = max(scored_epochs, key=lambda row: row["eval_f1"])
 
+    # Bước 15: Lưu kết quả từng seed
     result = {
         "model": model_name,
         "checkpoint": checkpoint,
@@ -326,6 +429,7 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
     return result
 
 
+# Bước 16: Tổng hợp seeds và CLI
 def run_experiment(models: list[str], seeds: list[int]) -> None:
     """Chạy lần lượt các model/seed, rồi tổng hợp trung bình và seed tốt nhất."""
     all_results: list[dict[str, Any]] = []
@@ -370,6 +474,7 @@ def run_experiment(models: list[str], seeds: list[int]) -> None:
     print(f"Đã lưu tổng hợp tại: {summary_path}")
 
 
+# Bước 16: Đọc lựa chọn từ dòng lệnh
 def parse_args() -> argparse.Namespace:
     """Đọc lựa chọn kiến trúc/seed từ dòng lệnh."""
     parser = argparse.ArgumentParser(
