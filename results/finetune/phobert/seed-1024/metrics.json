@@ -1,0 +1,17 @@
+{
+  "model": "phobert",
+  "checkpoint": "vinai/phobert-base-v2",
+  "seed": 1024,
+  "max_length": 256,
+  "doc_stride": 64,
+  "exact_match": 44.23177766124803,
+  "f1": 56.499932097263994,
+  "answerable_em": 48.96343761779118,
+  "answerable_f1": 66.60035469994907,
+  "unanswerable_accuracy": 33.41946597760551,
+  "training_seconds": 404.19,
+  "bf16": true,
+  "device": "cuda",
+  "num_epochs": 3,
+  "train_features_used": 8994
+}

@@ -40,9 +40,11 @@ def prepare_train_features(
     """
     Tiền xử lý tập Train: Tokenize, trượt cửa sổ và ánh xạ span từ ký tự sang token.
     """
+    # Bước 1: Chuẩn hóa đầu câu hỏi
     # Làm sạch khoảng trắng đầu/cuối của câu hỏi
     examples["question"] = [q.lstrip() for q in examples["question"]]
 
+    # Bước 2: Tokenize cặp văn bản
     # Tokenize đồng thời Question và Context
     tokenized_examples = tokenizer(
         examples["question"],
@@ -74,10 +76,12 @@ def prepare_train_features(
     """
 
 
+    # Bước 3: Lấy metadata phụ ra
     # Tách thông tin trung gian để xử lý
     sample_mapping = tokenized_examples.pop("overflow_to_sample_mapping")
     offset_mapping = tokenized_examples.pop("offset_mapping")
 
+    # Bước 4: Tạo danh sách nhãn
     tokenized_examples["start_positions"] = []
     tokenized_examples["end_positions"] = []
 
@@ -95,6 +99,7 @@ def prepare_train_features(
     """
 
 
+    # Bước 5: Xác định cửa sổ và CLS
     # Phân loại Token và Xác định vị trí CLS
     for i, offsets in enumerate(offset_mapping):
         input_ids = tokenized_examples["input_ids"][i]
@@ -106,16 +111,19 @@ def prepare_train_features(
         answers = examples["answers"][sample_index]
         is_impossible = examples.get("is_impossible", [False] * len(sample_mapping))[sample_index]
 
+        # Bước 6: Gán CLS cho no-answer
         # Trường hợp 1: Câu hỏi không có đáp án
         if is_impossible or len(answers["answer_start"]) == 0:
             tokenized_examples["start_positions"].append(cls_index)
             tokenized_examples["end_positions"].append(cls_index)
             continue
 
+        # Bước 7: Tính biên ký tự đáp án
         # Trường hợp 2: Câu hỏi có đáp án
         start_char = answers["answer_start"][0]
         end_char = start_char + len(answers["text"][0])
 
+        # Bước 8: Tìm phần context trong feature
         # Tìm phạm vi token thuộc phần Context
         token_start_index = 0
         while sequence_ids[token_start_index] != 1:
@@ -125,12 +133,14 @@ def prepare_train_features(
         while sequence_ids[token_end_index] != 1:
             token_end_index -= 1
 
+        # Bước 9: Xem đáp án có nằm trọn trong cửa sổ không
         # Kiểm tra xem đáp án có nằm trọn trong đoạn trượt này không
         if not (offsets[token_start_index][0] <= start_char and offsets[token_end_index][1] >= end_char):
             # Nằm ngoài cửa sổ trượt -> đánh dấu nhãn unanswerable cho feature này
             tokenized_examples["start_positions"].append(cls_index)
             tokenized_examples["end_positions"].append(cls_index)
         else:
+            # Bước 10: Ánh xạ start/end token
             # Tìm token bắt đầu
             while token_start_index < len(offsets) and offsets[token_start_index][0] <= start_char:
                 token_start_index += 1
@@ -144,6 +154,7 @@ def prepare_train_features(
             tokenized_examples["start_positions"].append(start_position)
             tokenized_examples["end_positions"].append(end_position)
 
+    # Bước 11: Trả feature cho Trainer
     return tokenized_examples
 
 
@@ -157,6 +168,7 @@ def prepare_validation_features(
     # Tiền xử lý tập Validation/Test: Giữ lại offset_mapping và example_id
     # để phục vụ việc map logits dự đoán ngược lại văn bản gốc lúc đánh giá.
 
+    # Bước 1: Tokenize giống train
     examples["question"] = [q.lstrip() for q in examples["question"]]
 
     tokenized_examples = tokenizer(
@@ -170,6 +182,7 @@ def prepare_validation_features(
         padding="max_length",
     )
 
+    # Bước 2: Giữ nguồn gốc feature
     sample_mapping = tokenized_examples.pop("overflow_to_sample_mapping")
     tokenized_examples["example_id"] = []
 
@@ -178,12 +191,14 @@ def prepare_validation_features(
         sample_index = sample_mapping[i]
         tokenized_examples["example_id"].append(examples["id"][sample_index])
 
+        # Bước 3: Ẩn offset không thuộc context
         # Đặt offset của các token không thuộc context về None để lúc decode bỏ qua
         tokenized_examples["offset_mapping"][i] = [
             (o if sequence_ids[k] == 1 else None)
             for k, o in enumerate(tokenized_examples["offset_mapping"][i])
         ]
 
+    # Bước 4: Trả metadata cho giải mã
     return tokenized_examples
 
 """
