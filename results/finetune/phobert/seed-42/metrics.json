@@ -1,0 +1,17 @@
+{
+  "model": "phobert",
+  "checkpoint": "vinai/phobert-base-v2",
+  "seed": 42,
+  "best_checkpoint": "d:\\Môn năm 3\\uit-viquad2-extractive-qa\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\phobert\\seed-42\\checkpoint-846",
+  "best_epoch": 3.0,
+  "best_eval_f1": 55.96408916779969,
+  "best_eval_exact_match": 44.72994231777661,
+  "training_seconds": 264.43,
+  "effective_batch_size": 32,
+  "epochs_requested": 3,
+  "max_seq_length": 256,
+  "doc_stride": 64,
+  "bf16": true,
+  "device": "cuda",
+  "train_features_used": 8994
+}
