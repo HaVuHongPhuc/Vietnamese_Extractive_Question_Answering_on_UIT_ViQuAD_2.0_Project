@@ -282,6 +282,96 @@
           1156
         ]
       ]
+    },
+    "PhoBERT seed 1024": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 48.774971730116846,
+          "F1_percent": 66.88153048550896
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 31.61068044788975,
+          "F1_percent": 31.61068044788975
+        }
+      },
+      "answerability_accuracy_percent": 67.51442055584688,
+      "no_answer_recall_percent": 31.61068044788975,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2208,
+          445
+        ],
+        [
+          794,
+          367
+        ]
+      ]
+    },
+    "PhoBERT seed 123": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 47.68186958160573,
+          "F1_percent": 64.88418087573207
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 35.48664944013781,
+          "F1_percent": 35.48664944013781
+        }
+      },
+      "answerability_accuracy_percent": 66.99003670686943,
+      "no_answer_recall_percent": 35.48664944013781,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2143,
+          510
+        ],
+        [
+          749,
+          412
+        ]
+      ]
+    },
+    "PhoBERT seed 42": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 48.36034677723332,
+          "F1_percent": 64.51075615755295
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 36.434108527131784,
+          "F1_percent": 36.434108527131784
+        }
+      },
+      "answerability_accuracy_percent": 66.01992658626115,
+      "no_answer_recall_percent": 36.434108527131784,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2095,
+          558
+        ],
+        [
+          738,
+          423
+        ]
+      ]
     }
   }
 }
