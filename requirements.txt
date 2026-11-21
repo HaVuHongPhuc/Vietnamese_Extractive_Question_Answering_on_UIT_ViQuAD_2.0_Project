@@ -1,27 +1,27 @@
-# Deep Learning & Transformers
-# PyTorch 2.7+ provides stable CUDA support for NVIDIA Blackwell GPUs such as RTX 5070 Ti.
+# Deep learning và Hugging Face
 torch>=2.7.0
 transformers>=4.38.0
 datasets>=2.18.0
 accelerate>=0.27.0
+huggingface_hub
+filelock
 evaluate>=0.4.1
 sentencepiece>=0.1.99
 protobuf>=4.25.0
+tiktoken
 
-# Metrics & Data Processing
+# Baseline, phân tích số liệu và biểu đồ
 scikit-learn
 pandas
 numpy
+matplotlib
 
-# Vietnamese NLP Tools
-underthesea>=6.8.0
+# PhoBERT và demo
+underthesea==9.5.0
+streamlit>=1.32
 
-# Demo UI
-gradio>=4.0.0
-
-# Jupyter / Tracking (tùy chọn)
+# Notebook
 jupyterlab
+ipykernel
+ipywidgets
 tqdm
-
-# dataset
-datasets

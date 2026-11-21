@@ -1,5 +1,6 @@
 """Giải mã câu trả lời và tính EM/F1 cho bài toán extractive QA."""
 
+# Bước 1 — Khai báo kiểu dữ liệu và hằng số
 from __future__ import annotations
 
 import math
@@ -19,6 +20,7 @@ N_BEST_TOKENS = 20
 NO_ANSWER_THRESHOLD = 0.0
 
 
+# Bước 2 — Chuẩn hóa văn bản
 def normalize_text(text: str) -> str:
     """Chuẩn hóa nhẹ tiếng Việt trước khi tính EM/F1.
 
@@ -31,12 +33,14 @@ def normalize_text(text: str) -> str:
     return " ".join(text.split())
 
 
+# Bước 3 — Tính Exact Match
 def exact_match(prediction: str, references: list[str]) -> float:
     """Trả 1 nếu dự đoán trùng hoàn toàn với ít nhất một đáp án chuẩn."""
     normalized_prediction = normalize_text(prediction)
     return float(any(normalized_prediction == normalize_text(ref) for ref in references))
 
 
+# Bước 4 — Tính token F1
 def token_f1(prediction: str, reference: str) -> float:
     """F1 dựa trên các token cách nhau bởi khoảng trắng.
 
@@ -65,6 +69,7 @@ def token_f1(prediction: str, reference: str) -> float:
     return 2 * precision * recall / (precision + recall)
 
 
+# Bước 5 — Chấm một câu hỏi và nhiều đáp án chuẩn
 def score_prediction(prediction: str, references: list[str]) -> tuple[float, float]:
     """Lấy EM/F1 cao nhất trong danh sách đáp án chuẩn của một câu hỏi."""
     if not references:
@@ -74,6 +79,7 @@ def score_prediction(prediction: str, references: list[str]) -> tuple[float, flo
     return em, f1
 
 
+# Bước 6 — Khởi tạo tích lũy theo câu hỏi
 def decode_predictions(
     start_logits: np.ndarray,
     end_logits: np.ndarray,
@@ -93,6 +99,7 @@ def decode_predictions(
     # cửa sổ khác có thể chứa bằng chứng tốt hơn cho câu hỏi có đáp án.
     best_null_score: dict[str, float] = defaultdict(lambda: math.inf)
 
+    # Bước 7 — Duyệt từng feature/cửa sổ
     for feature_index, example_id in enumerate(feature_ids):
         example = examples_by_id[example_id]
         offsets = feature_offsets[feature_index]
@@ -108,6 +115,7 @@ def decode_predictions(
         top_ends = np.argsort(ends)[-N_BEST_TOKENS:]
         context = example["context"]
 
+        # Bước 8 — Lọc cặp start/end hợp lệ
         for start_index in top_starts:
             for end_index in top_ends:
                 if end_index < start_index:
@@ -117,6 +125,7 @@ def decode_predictions(
                 if offsets[start_index] is None or offsets[end_index] is None:
                     continue
 
+                # Bước 9 — Đổi span token thành văn bản
                 char_start = int(offsets[start_index][0])
                 char_end = int(offsets[end_index][1])
                 if char_end <= char_start:
@@ -127,6 +136,7 @@ def decode_predictions(
                 if score > best_answer.get(example_id, (-math.inf, ""))[0]:
                     best_answer[example_id] = (score, answer)
 
+    # Bước 10 — Quyết định có đáp án hay không
     predictions: dict[str, str] = {}
     for example_id in examples_by_id:
         answer_score, answer_text = best_answer.get(example_id, (-math.inf, ""))
@@ -141,6 +151,7 @@ def decode_predictions(
     return predictions
 
 
+# Bước 11 — Tạo callback cho Trainer
 def make_compute_metrics(
     feature_ids: list[str],
     feature_offsets: list[list[Any]],
@@ -161,6 +172,7 @@ def make_compute_metrics(
             examples_by_id,
         )
 
+        # Bước 12 — Tổng hợp và đổi sang phần trăm
         em_scores: list[float] = []
         f1_scores: list[float] = []
         for example_id, example in examples_by_id.items():

@@ -1,0 +1,11 @@
+{
+  "run_identity": {
+    "experiment_fingerprint": "a28388a1c77541339c0aea58a3d44c8ef0546d4a78cc6f5e4b9161e882705652",
+    "model": "mdeberta",
+    "seed": 1024
+  },
+  "training_attempt": "a-ll021r_m",
+  "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\runs\\run-a28388a1c7754133\\mdeberta\\seed-1024\\a-ll021r_m\\checkpoint-372",
+  "best_epoch": 1.0,
+  "training_seconds": 734.58
+}

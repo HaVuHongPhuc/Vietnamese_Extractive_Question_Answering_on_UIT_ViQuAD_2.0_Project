@@ -1,0 +1,20 @@
+{
+  "operation": "move_unclean_selected_snapshots_to_raw",
+  "date": "2026-11-09",
+  "content_changed": false,
+  "cleaning_completed": false,
+  "files": [
+    {
+      "from": "data\\processed\\train.json",
+      "to": "data\\raw\\train.json",
+      "rows": 8000,
+      "sha256": "6fba7af348684d9be040f6f18cf45a3279e43bf01a08ef5b6db99900469e477d"
+    },
+    {
+      "from": "data\\processed\\dev.json",
+      "to": "data\\raw\\dev.json",
+      "rows": 3814,
+      "sha256": "a8e6e15f1603eb0841af827c0fb9a47d1e120752236fee4c8da6486e5c8a1f1b"
+    }
+  ]
+}

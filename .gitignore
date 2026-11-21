@@ -16,3 +16,5 @@ results/finetune/**/best_model/
 *.pt
 *.docx
 checklist.md
+results/finetune/runs/**/*.lock
+tasks.md

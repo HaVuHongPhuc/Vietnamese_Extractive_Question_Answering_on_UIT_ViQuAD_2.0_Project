@@ -19,11 +19,15 @@ The comments and docstrings are intentionally detailed for NLP learners.
 from __future__ import annotations
 
 import argparse
+import hashlib
+import inspect
 import json
 import os
+import re
 import sys
 import tempfile
 import time
+from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
@@ -38,6 +42,8 @@ os.environ.setdefault("HF_DATASETS_CACHE", str(DATASET_CACHE_DIR))
 import numpy as np
 import torch
 from datasets import load_dataset
+from filelock import FileLock
+from huggingface_hub import hf_hub_download
 from transformers import (
     AutoModelForQuestionAnswering,
     AutoTokenizer,
@@ -55,6 +61,8 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.evaluation import decode_predictions, make_compute_metrics
 from src.data_preprocessing import (
+    DOC_STRIDE,
+    MAX_SEQ_LENGTH,
     prepare_train_features,
     prepare_validation_features,
 )
@@ -77,7 +85,7 @@ MODEL_CHECKPOINTS = {
 DEFAULT_SEEDS = [42, 123, 1024]
 
 # Bước 3: Đọc train/dev JSONL
-def load_project_data():
+def load_project_data(cache_dir: Path = DATASET_CACHE_DIR):
     """Đọc hai tệp JSON Lines đã chuẩn bị trong data/processed/."""
     for path in (TRAIN_FILE, DEV_FILE):
         if not path.exists():
@@ -89,7 +97,7 @@ def load_project_data():
     loaded = load_dataset(
         "json",
         data_files={"train": str(TRAIN_FILE), "validation": str(DEV_FILE)},
-        cache_dir=str(DATASET_CACHE_DIR),
+        cache_dir=str(cache_dir),
     )
     return loaded["train"], loaded["validation"]
 
@@ -171,7 +179,7 @@ def print_preprocessing_summary(
         print(f"Đoạn giải mã từ nhãn: {span_text}")
 
 
-def make_training_arguments(output_dir: Path, seed: int) -> TrainingArguments:
+def make_training_options() -> dict[str, Any]:
     """Tạo cấu hình Trainer, dùng batch vật lý nhỏ để vừa VRAM 16 GB.
 
     Batch vật lý 4 x gradient accumulation 8 tương đương batch hiệu dụng 32
@@ -187,10 +195,7 @@ def make_training_arguments(output_dir: Path, seed: int) -> TrainingArguments:
     use_fp16 = not use_bf16
 
     # Tên tham số đổi giữa một số phiên bản Transformers; chọn tên tương thích.
-    import inspect
-
     arguments = {
-        "output_dir": str(output_dir),
         "learning_rate": 2e-5,
         "per_device_train_batch_size": 4,
         "per_device_eval_batch_size": 8,
@@ -209,8 +214,6 @@ def make_training_arguments(output_dir: Path, seed: int) -> TrainingArguments:
         "save_total_limit": 2,
         "dataloader_num_workers": 0,  # 0 thường ổn định hơn trên Windows.
         "report_to": "none",  # Không gửi log sang dịch vụ theo dõi bên ngoài.
-        "seed": seed,
-        "data_seed": seed,
     }
 
     supported = inspect.signature(TrainingArguments.__init__).parameters
@@ -218,57 +221,193 @@ def make_training_arguments(output_dir: Path, seed: int) -> TrainingArguments:
     arguments[strategy_name] = "epoch"
 
     # Bỏ tham số tùy chọn không tồn tại ở phiên bản Transformers đang cài.
-    arguments = {key: value for key, value in arguments.items() if key in supported}
-
-    # Một lần huấn luyện lặp từng epoch để có thể so sánh checkpoint tốt nhất.
-    return TrainingArguments(**arguments)
+    return {key: value for key, value in arguments.items() if key in supported}
 
 
-def find_completed_run_state(output_dir: Path) -> dict[str, Any] | None:
-    """Đọc checkpoint cuối để khôi phục bước ghi kết quả nếu máy từng dừng."""
-    checkpoints = sorted(
-        output_dir.glob("checkpoint-*"),
-        key=lambda path: int(path.name.split("-")[-1]),
-    )
-    if not checkpoints:
-        return None
-
-    state_file = checkpoints[-1] / "trainer_state.json"
-    if not state_file.exists():
-        return None
-
-    state = json.loads(state_file.read_text(encoding="utf-8"))
-    eval_rows = [row for row in state.get("log_history", []) if "eval_f1" in row]
-    # Chỉ khôi phục nếu đã hoàn tất đủ ba epoch; checkpoint giữa chừng phải train tiếp.
-    if eval_rows and max(row.get("epoch", 0) for row in eval_rows) >= 3:
-        return state
-    return None
+def file_sha256(path: Path) -> str:
+    """Tính mã băm của đúng các byte trong một tệp."""
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-# Bước 4: Đặt seed và tránh train lặp
-def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any]:
-    """Huấn luyện một checkpoint với một seed và lưu metric/checkpoint."""
-    output_dir = RESULTS_DIR / model_name / f"seed-{seed}"
+def describe_data() -> dict[str, Any]:
+    """Lấy danh tính train/dev và tìm hồ sơ T06 tương ứng."""
+    splits = {}
+    for name, path in (("train", TRAIN_FILE), ("dev", DEV_FILE)):
+        splits[name] = {
+            "file": path.relative_to(PROJECT_ROOT).as_posix(),
+            "sha256": file_sha256(path),
+        }
+
+    # Kết quả dev phụ thuộc train/dev. Ưu tiên hồ sơ T06 nếu hai hash khớp.
+    dataset_version = f"train-dev-{splits['train']['sha256'][:12]}-{splits['dev']['sha256'][:12]}"
+    manifest_file = None
+    for path in sorted((PROJECT_ROOT / "reports").glob("data_version_*.json")):
+        manifest = json.loads(path.read_text(encoding="utf-8"))
+        recorded_splits = manifest.get("splits", {})
+        if all(recorded_splits.get(name, {}).get("sha256") == info["sha256"]
+               for name, info in splits.items()):
+            dataset_version = manifest["dataset_version"]
+            manifest_file = path.relative_to(PROJECT_ROOT).as_posix()
+            break
+
+    return {"dataset_version": dataset_version, "manifest": manifest_file, "splits": splits}
+
+
+def describe_experiment(
+    models: list[str], training_options: dict[str, Any], *, run_label: str | None = None
+) -> dict[str, Any]:
+    """Chốt dữ liệu, revision và cấu hình trước khi chọn thư mục kết quả."""
+    data = describe_data()
+    sources = {}
+    for model_name in sorted(models):
+        checkpoint = MODEL_CHECKPOINTS[model_name]
+
+        # Tải tệp config nhỏ để biết commit thật sự được dùng. Đường dẫn cache
+        # của tệp có dạng snapshots/<commit>/config.json.
+        config_path = Path(hf_hub_download(repo_id=checkpoint, filename="config.json"))
+        revision = config_path.parent.name
+        if config_path.parent.parent.name != "snapshots" or not re.fullmatch(r"[0-9a-f]{40}", revision):
+            raise RuntimeError(f"Không xác định được revision của {checkpoint}: {config_path}")
+
+        # Cả tokenizer và trọng số gốc được nạp từ cùng một commit.
+        sources[model_name] = {
+            "model": {"repo_id": checkpoint, "revision": revision},
+            "tokenizer": {"repo_id": checkpoint, "revision": revision, "use_fast": True},
+        }
+
+    # Nếu cách ánh xạ nhãn, chấm điểm hoặc cấu hình train đổi, thư mục cũng đổi.
+    pipeline_hashes = {}
+    for name in ("train_qa.py", "data_preprocessing.py", "evaluation.py"):
+        pipeline_hashes[name] = file_sha256(PROJECT_ROOT / "src" / name)
+    package_versions = {}
+    for name in ("torch", "transformers", "tokenizers", "datasets", "accelerate"):
+        package_versions[name] = version(name)
+
+    identity = {
+        "data": data,
+        "sources": sources,
+        "training_options": training_options,
+        "preprocessing": {"max_seq_length": MAX_SEQ_LENGTH, "doc_stride": DOC_STRIDE},
+        "pipeline_sha256": pipeline_hashes,
+        "package_versions": package_versions,
+    }
+    # Nhãn mới tạo một lượt độc lập dù dữ liệu và tham số giống hệt.
+    # Giữ nhãn khi chạy lại cell để tiếp tục dùng kết quả đã xong của lượt đó.
+    if run_label is not None:
+        identity["run_label"] = run_label
+
+    payload = json.dumps(identity, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    fingerprint = hashlib.sha256(payload).hexdigest()
+    return {
+        "experiment_id": f"run-{fingerprint[:16]}",
+        "fingerprint": fingerprint,
+        **identity,
+    }
+
+
+def save_run_json(path: Path, data: Any) -> None:
+    """Ghi sang tệp tạm rồi thay thế để người đọc chỉ thấy JSON hoàn chỉnh."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    # Tệp tạm riêng cho mỗi lần ghi, kể cả nếu hai tiến trình ghi cùng lúc.
+    with tempfile.NamedTemporaryFile(
+        mode="w", dir=path.parent, encoding="utf-8", delete=False, suffix=".tmp"
+    ) as file:
+        temp_path = Path(file.name)
+    try:
+        save_json(temp_path, data)
+        temp_path.replace(path)
+    finally:
+        temp_path.unlink(missing_ok=True)
+
+
+def make_training_arguments(
+    output_dir: Path, seed: int, training_options: dict[str, Any]
+) -> TrainingArguments:
+    """Giữ nguyên cấu hình đã ghi; thêm đường dẫn và seed của lượt cụ thể."""
+    supported = inspect.signature(TrainingArguments.__init__).parameters
+    seed_options = {"seed": seed, "data_seed": seed}
+    seed_options = {key: value for key, value in seed_options.items() if key in supported}
+    return TrainingArguments(output_dir=str(output_dir), **seed_options, **training_options)
+
+
+# Bước 4: Chọn thư mục theo danh tính thí nghiệm và seed.
+def train_one_seed(
+    model_name: str, seed: int, result_root: Path, experiment: dict[str, Any]
+) -> dict[str, Any]:
+    """Huấn luyện hoặc đọc kết quả hoàn chỉnh đúng phiên bản cho một seed."""
+    output_dir = result_root / model_name / f"seed-{seed}"
     output_dir.mkdir(parents=True, exist_ok=True)
-    saved_metrics = output_dir / "metrics.json"
-    saved_model = output_dir / "best_model"
-    if saved_metrics.exists() and saved_model.exists():
-        # Cho phép chạy lại cả experiment mà không train lại các seed đã xong.
-        print(f"Đã có kết quả seed {seed}; giữ nguyên checkpoint đã lưu.")
-        return json.loads(saved_metrics.read_text(encoding="utf-8"))
+
+    # Tránh hai kernel cùng ghi checkpoint, metrics và predictions của một seed.
+    with FileLock(str(output_dir / "seed.lock"), timeout=0):
+        return _train_one_seed(model_name, seed, output_dir, experiment)
+
+
+def _train_one_seed(
+    model_name: str, seed: int, output_dir: Path, experiment: dict[str, Any]
+) -> dict[str, Any]:
+    sources = experiment["sources"][model_name]
+    checkpoint = sources["model"]["repo_id"]
+    revision = sources["model"]["revision"]
+    identity = {
+        "experiment_fingerprint": experiment["fingerprint"],
+        "model": model_name,
+        "seed": seed,
+    }
+    result_file = output_dir / "metrics.json"
+    prediction_file = output_dir / "predictions.json"
+    best_model_dir = output_dir / "best_model"
+    complete_file = output_dir / "training_complete.json"
+
+    # Hoàn tất train và hoàn tất ghi kết quả là hai mốc khác nhau. Chỉ tin
+    # best_model khi marker được tạo sau khi lưu cả model và tokenizer.
+    recovered_state = None
+    weight_files = ("model.safetensors", "model.safetensors.index.json",
+                    "pytorch_model.bin", "pytorch_model.bin.index.json")
+    model_is_saved = (best_model_dir / "config.json").is_file() and any(
+        (best_model_dir / name).is_file() for name in weight_files
+    )
+    if complete_file.is_file() and model_is_saved:
+        saved_state = json.loads(complete_file.read_text(encoding="utf-8"))
+        if saved_state.get("run_identity") == identity:
+            recovered_state = saved_state
+
+    if recovered_state is not None and result_file.is_file() and prediction_file.is_file():
+        saved_result = json.loads(result_file.read_text(encoding="utf-8"))
+        if (saved_result.get("run_identity") == identity
+                and saved_result.get("training_attempt") == recovered_state["training_attempt"]):
+            print(f"Đã có kết quả đúng phiên bản cho seed {seed}: {output_dir}")
+            return saved_result
 
     # Seed phải được đặt trước khi khởi tạo mô hình để kiểm soát trọng số ban đầu.
     set_seed(seed)
     print(f"\n{'=' * 72}\nModel: {checkpoint} | seed: {seed}\n{'=' * 72}")
     print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"Thư mục seed: {output_dir}")
 
-    train_examples, dev_examples = load_project_data()
+    expected_data = experiment["data"]["splits"]
+    for split_name, path in (("train", TRAIN_FILE), ("dev", DEV_FILE)):
+        if file_sha256(path) != expected_data[split_name]["sha256"]:
+            raise RuntimeError(f"{path.name} đã đổi sau khi lập kế hoạch. Hãy chạy lại thí nghiệm.")
 
-    # Bước 5: Nạp tokenizer Fast
-    # Fast tokenizer cung cấp offset mapping cần thiết để khôi phục span văn bản.
-    tokenizer = AutoTokenizer.from_pretrained(checkpoint, use_fast=True)
+    # Tách cache theo nội dung train/dev để tránh nạp dữ liệu cũ khi tên file giữ nguyên.
+    data_cache_key = expected_data["train"]["sha256"] + expected_data["dev"]["sha256"]
+    data_cache_id = hashlib.sha256(data_cache_key.encode("ascii")).hexdigest()[:16]
+    train_examples, dev_examples = load_project_data(DATASET_CACHE_DIR / data_cache_id)
+    for split_name, path in (("train", TRAIN_FILE), ("dev", DEV_FILE)):
+        if file_sha256(path) != expected_data[split_name]["sha256"]:
+            raise RuntimeError(f"{path.name} đã đổi trong lúc đọc dữ liệu. Hãy chạy lại thí nghiệm.")
+
+    # Bước 5: Cố định tokenizer ở revision đã ghi trong hồ sơ.
+    tokenizer_source = sources["tokenizer"]
+    tokenizer = AutoTokenizer.from_pretrained(
+        tokenizer_source["repo_id"],
+        revision=tokenizer_source["revision"],
+        use_fast=tokenizer_source["use_fast"],
+    )
     if not tokenizer.is_fast:
         raise RuntimeError(f"Checkpoint {checkpoint} không cung cấp Fast Tokenizer.")
+
 
     # Bước 6: Tạo train features
     # Ánh xạ từng câu trả lời từ ký tự trong context thành chỉ số token.
@@ -310,9 +449,17 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
     )
     dev_model_features = dev_features_with_labels
 
-    # Bước 9: In tóm tắt tiền xử lý
-    # Tạo cấu hình một lần để vừa in ra vừa truyền nguyên cấu hình vào Trainer.
-    training_args = make_training_arguments(output_dir, seed)
+    # Bước 9: Mỗi lần train mới có thư mục checkpoint riêng. Nếu một lần
+    # trước dừng giữa chừng, checkpoint của nó không xen vào Trainer mới.
+    if recovered_state is None:
+        # Xóa marker cũ nếu nó không đủ điều kiện khôi phục. Nếu lần mới
+        # lại bị ngắt, không được gán marker cũ cho best_model chưa ghi xong.
+        complete_file.unlink(missing_ok=True)
+        attempt_dir = Path(tempfile.mkdtemp(prefix="a-", dir=output_dir))
+    else:
+        attempt_dir = output_dir / "recovery"
+
+    training_args = make_training_arguments(attempt_dir, seed, experiment["training_options"])
     print_preprocessing_summary(
         train_examples,
         dev_examples,
@@ -322,16 +469,13 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
         training_args,
     )
 
-    # Bước 10: Tạo hoặc khôi phục model
-    # Nếu quá trình train hoàn tất nhưng dừng lúc ghi summary, tái dùng best_model.
-    best_model_dir = output_dir / "best_model"
-    recovered_state = find_completed_run_state(output_dir)
-    if recovered_state and best_model_dir.exists():
-        print("Đã thấy checkpoint hoàn tất; nạp best_model để hoàn thiện tệp kết quả.")
+    # Bước 10: Chỉ khôi phục best_model đúng danh tính. Khi train mới,
+    # từng seed bắt đầu từ revision pretrained đã chốt.
+    if recovered_state is not None:
+        print(f"Khôi phục phần đánh giá của seed {seed} từ best_model đúng phiên bản.")
         model = AutoModelForQuestionAnswering.from_pretrained(str(best_model_dir))
     else:
-        # Mỗi seed khởi tạo mới từ checkpoint gốc, không kế thừa seed trước.
-        model = AutoModelForQuestionAnswering.from_pretrained(checkpoint)
+        model = AutoModelForQuestionAnswering.from_pretrained(checkpoint, revision=revision)
     # Bước 11: Tạo callback metrics, collator và Trainer
     compute_metrics = make_compute_metrics(
         feature_ids, feature_offsets, examples_by_id
@@ -339,8 +483,6 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
     # Tên đối số tokenizer đổi thành processing_class ở các bản mới hơn.
-    import inspect
-
     trainer_parameters = inspect.signature(Trainer.__init__).parameters
     tokenizer_argument = (
         {"processing_class": tokenizer}
@@ -358,56 +500,29 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
         **tokenizer_argument,
     )
 
-    # Bước 12: Fine tune và evaluate mỗi epoch
-    # Huấn luyện: Trainer tính loss start/end, lan truyền gradient và cập nhật trọng số.
-    if recovered_state and best_model_dir.exists():
-        # Trường hợp này chỉ khôi phục phần metrics/predictions sau khi train đủ epoch.
-        training_seconds = None
-    else:
+    # Bước 12: Train; Trainer đánh giá dev sau mỗi epoch và giữ model F1 tốt nhất.
+    if recovered_state is None:
         started_at = time.time()
         trainer.train()
-        training_seconds = time.time() - started_at
+        training_seconds = round(time.time() - started_at, 2)
 
-    # load_best_model_at_end=True đã nạp lại checkpoint có F1 dev cao nhất.
-    # Bước 13: Decode dự đoán thành câu trả lời
-    # Bước 14: Tính EM/F1 trên mẫu gốc
-    final_metrics = trainer.evaluate()
-    if not recovered_state:
+        # Ghi best_model trước rồi mới báo mốc hoàn tất train. Nếu phần
+        # dự đoán bị ngắt, lần sau có thể nạp lại đúng model để ghi kết quả.
         trainer.save_model(str(best_model_dir))
         tokenizer.save_pretrained(best_model_dir)
+        scored_epochs = [row for row in trainer.state.log_history if "eval_f1" in row]
+        best_epoch_row = max(scored_epochs, key=lambda row: row["eval_f1"])
+        recovered_state = {
+            "run_identity": identity,
+            "training_attempt": attempt_dir.name,
+            "best_checkpoint": trainer.state.best_model_checkpoint,
+            "best_epoch": best_epoch_row.get("epoch"),
+            "training_seconds": training_seconds,
+        }
+        save_run_json(complete_file, recovered_state)
 
-    history = (
-        recovered_state.get("log_history", [])
-        if recovered_state
-        else trainer.state.log_history
-    )
-    scored_epochs = [row for row in history if "eval_f1" in row]
-    best_epoch_row = max(scored_epochs, key=lambda row: row["eval_f1"])
-
-    # Bước 15: Lưu kết quả từng seed
-    result = {
-        "model": model_name,
-        "checkpoint": checkpoint,
-        "seed": seed,
-        "best_checkpoint": (
-            recovered_state.get("best_model_checkpoint")
-            if recovered_state
-            else trainer.state.best_model_checkpoint
-        ),
-        "best_epoch": best_epoch_row.get("epoch"),
-        "best_eval_f1": float(final_metrics.get("eval_f1", 0.0)),
-        "best_eval_exact_match": float(final_metrics.get("eval_exact_match", 0.0)),
-        "training_seconds": round(training_seconds, 2) if training_seconds is not None else None,
-        "effective_batch_size": 4 * 8,
-        "epochs_requested": 3,
-        "bf16": torch.cuda.is_bf16_supported(),
-    }
-
-    # JSON giúp người mới xem kết quả, seed, checkpoint và thời lượng sau mỗi lần chạy.
-    result_file = output_dir / "metrics.json"
-    save_json(result_file, result)
-
-    # Lưu dự đoán cuối cùng để tiện kiểm tra thủ công và phân tích lỗi.
+    # Bước 13–14: Đánh giá trên dev và giải mã về đoạn văn gốc.
+    final_metrics = trainer.evaluate()
     predictions = trainer.predict(dev_model_features).predictions
     decoded = decode_predictions(
         predictions[0], predictions[1], feature_ids, feature_offsets, examples_by_id
@@ -422,24 +537,102 @@ def train_one_seed(model_name: str, checkpoint: str, seed: int) -> dict[str, Any
                 "is_impossible": example["is_impossible"],
             }
         )
-    prediction_file = output_dir / "predictions.json"
-    save_json(prediction_file, prediction_rows)
 
+    # Bước 15: Lưu phiên bản dữ liệu và cấu hình thực tế ngay cùng metric.
+    result = {
+        "model": model_name,
+        "checkpoint": checkpoint,
+        "seed": seed,
+        "dataset_version": experiment["data"]["dataset_version"],
+        "data": experiment["data"],
+        "source_versions": sources,
+        "preprocessing": experiment["preprocessing"],
+        "training_config": {
+            **experiment["training_options"],
+            "seed": training_args.seed,
+            "data_seed": training_args.data_seed,
+        },
+        "experiment_id": experiment["experiment_id"],
+        "run_identity": identity,
+        "run_label": experiment.get("run_label"),
+        "training_attempt": recovered_state["training_attempt"],
+        "best_checkpoint": recovered_state["best_checkpoint"],
+        "best_epoch": recovered_state["best_epoch"],
+        "best_eval_f1": float(final_metrics["eval_f1"]),
+        "best_eval_exact_match": float(final_metrics["eval_exact_match"]),
+        "training_seconds": recovered_state["training_seconds"],
+        "effective_batch_size": (
+            training_args.per_device_train_batch_size * training_args.gradient_accumulation_steps
+        ),
+        "epochs_requested": training_args.num_train_epochs,
+        "bf16": training_args.bf16,
+    }
+
+    # Chỉ ghi metrics sau predictions để metrics đánh dấu lượt đã hoàn tất.
+    save_run_json(prediction_file, prediction_rows)
+    save_run_json(result_file, result)
     print(f"Kết quả seed {seed}: EM={result['best_eval_exact_match']:.2f}, F1={result['best_eval_f1']:.2f}")
     return result
 
 
 # Bước 16: Tổng hợp seeds và CLI
-def run_experiment(models: list[str], seeds: list[int]) -> None:
-    """Chạy lần lượt các model/seed, rồi tổng hợp trung bình và seed tốt nhất."""
+def run_experiment(
+    models: list[str], seeds: list[int], *, plan_only: bool = False, run_label: str | None = None
+) -> Path:
+    """Xem kế hoạch hoặc chạy thí nghiệm; trả về thư mục để notebook đọc kết quả."""
+    models = list(dict.fromkeys(models))
+    seeds = sorted(set(seeds))
+    if not models or not seeds:
+        raise ValueError("Cần chọn ít nhất một mô hình và một seed.")
+
+    if run_label is not None:
+        run_label = run_label.strip()
+        if not run_label:
+            raise ValueError("Nhãn lượt train không được để trống.")
+
+    training_options = make_training_options()
+    experiment = describe_experiment(models, training_options, run_label=run_label)
+    result_root = RESULTS_DIR / "runs" / experiment["experiment_id"]
+    print(f"Phiên bản dữ liệu: {experiment['data']['dataset_version']}")
+    print(f"Thư mục thí nghiệm: {result_root}")
+    print(f"Seed yêu cầu: {seeds}")
+    if run_label is not None:
+        print(f"Nhãn lượt chạy: {run_label}")
+    batch_size = training_options["per_device_train_batch_size"]
+    accumulation_steps = training_options["gradient_accumulation_steps"]
+    print(f"Batch hiệu dụng trên mỗi GPU: {batch_size} x {accumulation_steps} = {batch_size * accumulation_steps}")
+    for model_name in models:
+        print(f"{model_name}: revision {experiment['sources'][model_name]['model']['revision']}")
+
+    if plan_only:
+        print("Chế độ xem trước: chưa nạp trọng số, chưa huấn luyện.")
+        return result_root
+
+    result_root.mkdir(parents=True, exist_ok=True)
+    manifest_path = result_root / "run_manifest.json"
+    with FileLock(str(result_root / "manifest.lock")):
+        if manifest_path.exists():
+            saved_experiment = json.loads(manifest_path.read_text(encoding="utf-8"))
+            if saved_experiment != experiment:
+                raise RuntimeError(f"Hồ sơ thí nghiệm không khớp tại {manifest_path}.")
+        else:
+            save_run_json(manifest_path, experiment)
+
     all_results: list[dict[str, Any]] = []
     for model_name in models:
-        checkpoint = MODEL_CHECKPOINTS[model_name]
         for seed in seeds:
-            all_results.append(train_one_seed(model_name, checkpoint, seed))
+            all_results.append(train_one_seed(model_name, seed, result_root, experiment))
 
     # Tổng hợp riêng từng kiến trúc để không trộn metric giữa các model.
-    summary: dict[str, Any] = {"runs": all_results, "models": {}}
+    summary: dict[str, Any] = {
+        "experiment_id": experiment["experiment_id"],
+        "dataset_version": experiment["data"]["dataset_version"],
+        "requested_seeds": seeds,
+        "runs": all_results,
+        "models": {},
+    }
+    seed_suffix = "-".join(str(seed) for seed in seeds)
+    summary_name = f"summary-seeds-{seed_suffix}.json"
     for model_name in models:
         model_runs = [row for row in all_results if row["model"] == model_name]
         best_run = max(
@@ -449,6 +642,9 @@ def run_experiment(models: list[str], seeds: list[int]) -> None:
         f1_values = [row["best_eval_f1"] for row in model_runs]
         em_values = [row["best_eval_exact_match"] for row in model_runs]
         summary["models"][model_name] = {
+            "experiment_id": experiment["experiment_id"],
+            "dataset_version": experiment["data"]["dataset_version"],
+            "requested_seeds": seeds,
             "best_seed": best_run["seed"],
             "best_f1": best_run["best_eval_f1"],
             "best_exact_match": best_run["best_eval_exact_match"],
@@ -459,11 +655,11 @@ def run_experiment(models: list[str], seeds: list[int]) -> None:
         }
 
         # Mỗi notebook kiến trúc có file summary riêng để đọc kết quả độc lập.
-        model_summary_path = RESULTS_DIR / model_name / "summary.json"
-        save_json(model_summary_path, summary["models"][model_name])
+        model_summary_path = result_root / model_name / summary_name
+        save_run_json(model_summary_path, summary["models"][model_name])
 
-    summary_path = RESULTS_DIR / "summary.json"
-    save_json(summary_path, summary)
+    summary_path = result_root / summary_name
+    save_run_json(summary_path, summary)
     print("\nTổng hợp (F1/EM theo phần trăm):")
     for model_name, scores in summary["models"].items():
         print(
@@ -472,6 +668,7 @@ def run_experiment(models: list[str], seeds: list[int]) -> None:
             f"F1 trung bình={scores['mean_f1']:.2f} ± {scores['std_f1']:.2f}"
         )
     print(f"Đã lưu tổng hợp tại: {summary_path}")
+    return result_root
 
 
 # Bước 16: Đọc lựa chọn từ dòng lệnh
@@ -493,6 +690,11 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_SEEDS,
         help="Các seed cần chạy; mặc định là 42 123 1024.",
     )
+    parser.add_argument(
+        "--plan-only",
+        action="store_true",
+        help="In phiên bản dữ liệu và thư mục thí nghiệm, chưa huấn luyện.",
+    )
     return parser.parse_args()
 
 
@@ -505,4 +707,4 @@ if __name__ == "__main__":
     selected_models = (
         list(MODEL_CHECKPOINTS) if args.model == "both" else [args.model]
     )
-    run_experiment(selected_models, args.seeds)
+    run_experiment(selected_models, args.seeds, plan_only=args.plan_only)

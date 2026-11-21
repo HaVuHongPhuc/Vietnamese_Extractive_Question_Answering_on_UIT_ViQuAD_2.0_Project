@@ -1,0 +1,1449 @@
+{
+  "policy": "Giữ nguyên văn bản/nhãn/mẫu; chỉ sửa offset khớp duy nhất hoặc đã đối chiếu context.",
+  "train": {
+    "raw_sha256": "6fba7af348684d9be040f6f18cf45a3279e43bf01a08ef5b6db99900469e477d",
+    "before": {
+      "tong_mau": 8000,
+      "so_mau_loi": 48,
+      "so_mau_thieu_nhan": 0,
+      "chi_tiet_loi": [
+        {
+          "id": "0058-0007-0003",
+          "dong": 78,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0058-0020-0004",
+          "dong": 173,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0011-0007-0005",
+          "dong": 512,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0075-0027-0003",
+          "dong": 702,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0034-0048-0005",
+          "dong": 780,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0132-0005-0005",
+          "dong": 910,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0034-0047-0004",
+          "dong": 984,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0058-0026-0005",
+          "dong": 1054,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0138-0135-0003",
+          "dong": 1180,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0075-0048-0002",
+          "dong": 1235,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0059-0019-0004",
+          "dong": 1415,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0101-0035-0002",
+          "dong": 1710,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0011-0014-0005",
+          "dong": 1747,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0027-0004-0002",
+          "dong": 2367,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0088-0013-0001",
+          "dong": 2517,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0027-0054-0003",
+          "dong": 2710,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0058-0016-0001",
+          "dong": 2723,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0052-0002-0005",
+          "dong": 2755,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0138-0203-0003",
+          "dong": 2817,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0058-0025-0001",
+          "dong": 2916,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0004-0002-0003",
+          "dong": 3281,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0130-0017-0005",
+          "dong": 3556,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0058-0018-0002",
+          "dong": 3645,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0011-0037-0004",
+          "dong": 3961,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0138-0220-0003",
+          "dong": 3969,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0128-0002-0011",
+          "dong": 3973,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0011-0025-0005",
+          "dong": 4248,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0004-0005-0003",
+          "dong": 4304,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0101-0035-0005",
+          "dong": 4348,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0137-0011-0003",
+          "dong": 4559,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0057-0083-0002",
+          "dong": 4626,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0011-0009-0001",
+          "dong": 4740,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0022-0002-0003",
+          "dong": 5004,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0138-0058-0005",
+          "dong": 5423,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0034-0017-0002",
+          "dong": 5427,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0034-0043-0003",
+          "dong": 5536,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0116-0013-0005",
+          "dong": 5579,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0067-0006-0004",
+          "dong": 5680,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0034-0042-0004",
+          "dong": 5802,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0071-0003-0005",
+          "dong": 5903,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0114-0036-0003",
+          "dong": 6013,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0053-0037-0004",
+          "dong": 6269,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0027-0020-0004",
+          "dong": 6306,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0071-0041-0001",
+          "dong": 6423,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0071-0034-0003",
+          "dong": 6586,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0075-0001-0008",
+          "dong": 6947,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0071-0021-0005",
+          "dong": 7230,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0018-0021-0005",
+          "dong": 7692,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        }
+      ]
+    },
+    "after": {
+      "tong_mau": 8000,
+      "so_mau_loi": 0,
+      "so_mau_thieu_nhan": 0,
+      "chi_tiet_loi": []
+    },
+    "changes": [
+      {
+        "split": "train",
+        "id": "0058-0007-0003",
+        "answer_index": 0,
+        "answer_text": "phở chua, cháo nhộng ong, phở cốn sủi, thắng cố, các món xôi nếp nương của người Mường, thịt chua Thanh Sơn",
+        "old_start": 625,
+        "new_start": 626,
+        "positions": [
+          626
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0058-0020-0004",
+        "answer_index": 0,
+        "answer_text": "thường sử dụng quả mơ và các loại quả cùng họ như mận, đào",
+        "old_start": 163,
+        "new_start": 164,
+        "positions": [
+          164
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0011-0007-0005",
+        "answer_index": 0,
+        "answer_text": "để giới thiệu với Marx cuốn sách mới xuất bản của mình",
+        "old_start": 674,
+        "new_start": 675,
+        "positions": [
+          675
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0075-0027-0003",
+        "answer_index": 0,
+        "answer_text": "Publius Ventidius Bassus, một viên tướng dưới quyền Marcus Antonius đã đánh bại và sau đó hành quyết Labienus tại trận cánh cổng Cilicia (trong tỉnh Mersin ngày nay, Thổ Nhĩ Kỳ)",
+        "old_start": 126,
+        "new_start": 127,
+        "positions": [
+          127
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0034-0048-0005",
+        "answer_index": 0,
+        "answer_text": "ông là hậu duệ của vị anh hùng Achilles",
+        "old_start": 891,
+        "new_start": 892,
+        "positions": [
+          892
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0132-0005-0005",
+        "answer_index": 0,
+        "answer_text": "511",
+        "old_start": 563,
+        "new_start": 562,
+        "positions": [
+          562
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0034-0047-0004",
+        "answer_index": 0,
+        "answer_text": "các vị vua đều xưng những vương hiệu hoành tráng, thân chinh thống lĩnh những chiến binh tinh nhuệ và lập nên một đội cận vệ uy dũng",
+        "old_start": 413,
+        "new_start": 414,
+        "positions": [
+          414
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0058-0026-0005",
+        "answer_index": 0,
+        "answer_text": "dùng chấm rau sống",
+        "old_start": 457,
+        "new_start": 458,
+        "positions": [
+          458
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0138-0135-0003",
+        "answer_index": 0,
+        "answer_text": "Vân Nam",
+        "old_start": 408,
+        "new_start": 409,
+        "positions": [
+          409
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0075-0048-0002",
+        "answer_index": 0,
+        "answer_text": "vua của các vua",
+        "old_start": 321,
+        "new_start": 322,
+        "positions": [
+          322
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0059-0019-0004",
+        "answer_index": 0,
+        "answer_text": "châu Á, châu Phi",
+        "old_start": 527,
+        "new_start": 528,
+        "positions": [
+          528,
+          966
+        ],
+        "method": "da_doi_chieu_context",
+        "reason": "Câu chứa vị trí 528 mô tả các nước bị phương Tây xâm chiếm trước cách mạng. Vị trí 966 nói về các nước được Liên Xô giúp đỡ sau đó."
+      },
+      {
+        "split": "train",
+        "id": "0101-0035-0002",
+        "answer_index": 0,
+        "answer_text": "Bắc Kinh bị Lý Tự Thành chiếm lĩnh",
+        "old_start": 386,
+        "new_start": 385,
+        "positions": [
+          385
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0011-0014-0005",
+        "answer_index": 0,
+        "answer_text": "vì ung thư gan",
+        "old_start": 568,
+        "new_start": 569,
+        "positions": [
+          569
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0027-0004-0002",
+        "answer_index": 0,
+        "answer_text": "Miền Nam được chia thành 5 trấn, gọi là \"Gia Định ngũ trấn\"",
+        "old_start": 443,
+        "new_start": 444,
+        "positions": [
+          444
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0088-0013-0001",
+        "answer_index": 0,
+        "answer_text": "209 mẫu Anh (85 ha)",
+        "old_start": 33,
+        "new_start": 34,
+        "positions": [
+          34
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0027-0054-0003",
+        "answer_index": 0,
+        "answer_text": "toàn thành phố có 480.473 xe ôtô và 4.883.753 xe môtô",
+        "old_start": 698,
+        "new_start": 699,
+        "positions": [
+          699
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0058-0016-0001",
+        "answer_index": 0,
+        "answer_text": "ướp tẩm gia vị, rang qua hoặc rán sơ sau đó đổ nước xăm xắp và đun khoảng 1 tiếng cho cạn nước",
+        "old_start": 67,
+        "new_start": 68,
+        "positions": [
+          68
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0052-0002-0005",
+        "answer_index": 0,
+        "answer_text": "tội lỗi và sự chọn lựa của con người khước từ tình yêu của Thiên Chúa",
+        "old_start": 493,
+        "new_start": 494,
+        "positions": [
+          494
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0138-0203-0003",
+        "answer_index": 0,
+        "answer_text": "ngay từ đầu thập niên 50 của thế kỷ trước, khi nước Trung Hoa mới vừa thành lập",
+        "old_start": 213,
+        "new_start": 214,
+        "positions": [
+          214
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0058-0025-0001",
+        "answer_index": 0,
+        "answer_text": "chè mè đen hay xí mè phủ",
+        "old_start": 342,
+        "new_start": 343,
+        "positions": [
+          343
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0004-0002-0003",
+        "answer_index": 0,
+        "answer_text": "các công cụ phụ trợ như trình biên dịch, trình hợp dịch hay trình liên kết",
+        "old_start": 174,
+        "new_start": 175,
+        "positions": [
+          175
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0130-0017-0005",
+        "answer_index": 0,
+        "answer_text": "đôi mắt màu đỏ, lông mày vàng, mỏ màu cam cùng những chiếc lông nhọn trên đầu",
+        "old_start": 448,
+        "new_start": 449,
+        "positions": [
+          449
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0058-0018-0002",
+        "answer_index": 0,
+        "answer_text": "lạc rang tách vỏ, hạt tiêu, ớt, rau thơm và thậm chí, nó có thể ăn với lòng lợn luộc",
+        "old_start": 198,
+        "new_start": 199,
+        "positions": [
+          199
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0011-0037-0004",
+        "answer_index": 0,
+        "answer_text": "Leon Trotsky và những người ủng hộ ông",
+        "old_start": 778,
+        "new_start": 779,
+        "positions": [
+          779
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0138-0220-0003",
+        "answer_index": 0,
+        "answer_text": "chính sách đối ngoại hòa bình trung lập",
+        "old_start": 792,
+        "new_start": 793,
+        "positions": [
+          793
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0128-0002-0011",
+        "answer_index": 0,
+        "answer_text": "thứ hai",
+        "old_start": 458,
+        "new_start": 457,
+        "positions": [
+          457
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0011-0025-0005",
+        "answer_index": 0,
+        "answer_text": "giá lao động cũng sẽ sụt giảm, và cuối cùng khiến không thể đầu tư vào các kỹ thuật mới và sự tăng trưởng của các lĩnh vực của nền kinh tế",
+        "old_start": 851,
+        "new_start": 852,
+        "positions": [
+          852
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0004-0005-0003",
+        "answer_index": 0,
+        "answer_text": "Một máy tính thanh chứa có sự kết hợp giữa toán hạng trái và kết quả tính toán lưu trong một thanh chứa ẩn đối với hầu hết các chỉ thị đại số",
+        "old_start": 82,
+        "new_start": 83,
+        "positions": [
+          83
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0101-0035-0005",
+        "answer_index": 0,
+        "answer_text": "tiến hành đại đồ sát Dương Châu thập nhật, Giang Âm bát thập nhất nhật và Gia Định tam đồ",
+        "old_start": 1050,
+        "new_start": 1049,
+        "positions": [
+          1049
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0137-0011-0003",
+        "answer_index": 0,
+        "answer_text": "Sự đấu tranh – và hợp tác – giữa nhiều nhóm",
+        "old_start": 1251,
+        "new_start": 1252,
+        "positions": [
+          1252
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0057-0083-0002",
+        "answer_index": 0,
+        "answer_text": "Idanha-a-Nova",
+        "old_start": 195,
+        "new_start": 196,
+        "positions": [
+          196
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0011-0009-0001",
+        "answer_index": 0,
+        "answer_text": "lịch sử",
+        "old_start": 26,
+        "new_start": 27,
+        "positions": [
+          27,
+          88,
+          340
+        ],
+        "method": "da_doi_chieu_context",
+        "reason": "Câu mở đầu nói Marx nghiên cứu kỹ lịch sử và cùng Engels đưa ra ý tưởng. Các vị trí sau nói về chủ nghĩa duy vật lịch sử hoặc việc lần theo lịch sử."
+      },
+      {
+        "split": "train",
+        "id": "0022-0002-0003",
+        "answer_index": 0,
+        "answer_text": "Phiên bản ngày nay của Vương cung thánh đường Thánh Phêrô đã được xây dựng ở thời điểm này và Michelangelo đã vẽ lên những bức họa ở Nhà nguyện Sistina",
+        "old_start": 256,
+        "new_start": 257,
+        "positions": [
+          257
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0138-0058-0005",
+        "answer_index": 0,
+        "answer_text": "tố cáo những kẻ khiêu khích (ám chỉ những người Trotskyist và các giáo phái) đã phá hoại trật tự và gây đổ máu vào ngày 2/9/1945, đồng thời chỉ trích việc họ đã tổ chức một cuộc biểu tình đòi vũ trang cho quần chúng",
+        "old_start": 343,
+        "new_start": 344,
+        "positions": [
+          344
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0034-0017-0002",
+        "answer_index": 0,
+        "answer_text": "cái liên minh hiểm họa vừa được thành lập tại Hy Lạp",
+        "old_start": 199,
+        "new_start": 200,
+        "positions": [
+          200
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0034-0043-0003",
+        "answer_index": 0,
+        "answer_text": "Những câu hỏi lạ lùng thì sẽ có những câu trả lời lạ lùng\"",
+        "old_start": 769,
+        "new_start": 770,
+        "positions": [
+          770
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0116-0013-0005",
+        "answer_index": 0,
+        "answer_text": "không muốn thỏa mãn các yêu cầu này vì hiến pháp không cho phép",
+        "old_start": 589,
+        "new_start": 590,
+        "positions": [
+          590
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0067-0006-0004",
+        "answer_index": 0,
+        "answer_text": "Ước cả năm tổng số lượt khám bệnh ước đạt trên 1.000.000 lượt người, tổng số bệnh nhân điều trị nội trú 103.800 lượt và trên 6500 bệnh nhân điều trị ngoại trú",
+        "old_start": 258,
+        "new_start": 259,
+        "positions": [
+          259
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0034-0042-0004",
+        "answer_index": 0,
+        "answer_text": "thăm dò vịnh Ba Tư dưới quyền của đô đốc Nearchus",
+        "old_start": 217,
+        "new_start": 218,
+        "positions": [
+          218
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0071-0003-0005",
+        "answer_index": 0,
+        "answer_text": "lục địa phía bắc là Ishtar Terra, theo tên thần Ishtar, thần tình yêu của người Babylon",
+        "old_start": 312,
+        "new_start": 313,
+        "positions": [
+          313
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0114-0036-0003",
+        "answer_index": 0,
+        "answer_text": "một tuyến vận chuyển quan trọng, tại thái ấp Andeli",
+        "old_start": 390,
+        "new_start": 391,
+        "positions": [
+          391
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0053-0037-0004",
+        "answer_index": 0,
+        "answer_text": "Hai người gặp gỡ từ giữa những năm 80 khi Jackson bắt đầu bị chẩn đoán mắc chứng bạch biến",
+        "old_start": 507,
+        "new_start": 508,
+        "positions": [
+          508
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0027-0020-0004",
+        "answer_index": 0,
+        "answer_text": "Một khối lượng lớn người lao động làm việc trong các “sở Mỹ” (các văn phòng, trụ sở quân sự của Mỹ) cũng không còn việc làm",
+        "old_start": 220,
+        "new_start": 221,
+        "positions": [
+          221
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0071-0041-0001",
+        "answer_index": 0,
+        "answer_text": "bốn phi vụ",
+        "old_start": 7,
+        "new_start": 8,
+        "positions": [
+          8,
+          285
+        ],
+        "method": "da_doi_chieu_context",
+        "reason": "Câu đầu nêu trực tiếp bốn phi vụ đổ bộ trong bốn năm tiếp theo. Vị trí 285 mô tả cách các phi vụ dùng dù."
+      },
+      {
+        "split": "train",
+        "id": "0071-0034-0003",
+        "answer_index": 0,
+        "answer_text": "ngày 14 tháng 12 năm 1962",
+        "old_start": 193,
+        "new_start": 194,
+        "positions": [
+          194
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0075-0001-0008",
+        "answer_index": 0,
+        "answer_text": "nằm án ngữ trên con đường tơ lụa nối liền Đế chế La Mã ở lưu vực Địa Trung Hải với nhà Hán ở Trung Quốc",
+        "old_start": 736,
+        "new_start": 735,
+        "positions": [
+          735
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0071-0021-0005",
+        "answer_index": 0,
+        "answer_text": "do ảnh hưởng hấp dẫn thủy triều rất mạnh của Mặt Trời",
+        "old_start": 1201,
+        "new_start": 1202,
+        "positions": [
+          1202
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "train",
+        "id": "0018-0021-0005",
+        "answer_index": 0,
+        "answer_text": "biển Aegea tại phía tây, biển Đen tại phía bắc và Địa Trung Hải tại phía nam",
+        "old_start": 704,
+        "new_start": 705,
+        "positions": [
+          705
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      }
+    ],
+    "unresolved": [],
+    "exported": true,
+    "processed_sha256": "05de3ab29680923a17cf0a0206dd68dc6771e411bb6ff9f2e6cb02ae23d16ca5"
+  },
+  "dev": {
+    "raw_sha256": "a8e6e15f1603eb0841af827c0fb9a47d1e120752236fee4c8da6486e5c8a1f1b",
+    "before": {
+      "tong_mau": 3814,
+      "so_mau_loi": 22,
+      "so_mau_thieu_nhan": 0,
+      "chi_tiet_loi": [
+        {
+          "id": "0001-0007-0004",
+          "dong": 37,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0001-0039-0004",
+          "dong": 214,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0001-0065-0002",
+          "dong": 342,
+          "loi": [
+            "Đáp án 1: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0001-0066-0005",
+          "dong": 348,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0003-0017-0004",
+          "dong": 745,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0003-0023-0003",
+          "dong": 784,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0003-0026-0003",
+          "dong": 807,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0003-0030-0005",
+          "dong": 831,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0003-0033-0002",
+          "dong": 848,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0004-0036-0002",
+          "dong": 1253,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0006-0022-0002",
+          "dong": 1585,
+          "loi": [
+            "Đáp án 1: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0012-0009-0006",
+          "dong": 2278,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0012-0021-0001",
+          "dong": 2367,
+          "loi": [
+            "Đáp án 1: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0012-0028-0001",
+          "dong": 2418,
+          "loi": [
+            "Đáp án 1: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0012-0029-0002",
+          "dong": 2427,
+          "loi": [
+            "Đáp án 1: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0012-0031-0007",
+          "dong": 2449,
+          "loi": [
+            "Đáp án 1: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0012-0033-0002",
+          "dong": 2463,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0017-0021-0002",
+          "dong": 3196,
+          "loi": [
+            "Đáp án 2: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0017-0033-0006",
+          "dong": 3287,
+          "loi": [
+            "Đáp án 2: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0017-0062-0004",
+          "dong": 3483,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0017-0066-0003",
+          "dong": 3506,
+          "loi": [
+            "Đáp án 2: offset không khớp context"
+          ]
+        },
+        {
+          "id": "0018-0004-0006",
+          "dong": 3581,
+          "loi": [
+            "Đáp án 0: offset không khớp context"
+          ]
+        }
+      ]
+    },
+    "after": {
+      "tong_mau": 3814,
+      "so_mau_loi": 0,
+      "so_mau_thieu_nhan": 0,
+      "chi_tiet_loi": []
+    },
+    "changes": [
+      {
+        "split": "dev",
+        "id": "0001-0007-0004",
+        "answer_index": 0,
+        "answer_text": "Quận 12 ở phía Đông",
+        "old_start": 449,
+        "new_start": 450,
+        "positions": [
+          450
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0001-0039-0004",
+        "answer_index": 0,
+        "answer_text": "dân số quá đông, tâm lý stress của đô thị, ô nhiễm, giá cả đắt đỏ, kém an ninh",
+        "old_start": 469,
+        "new_start": 470,
+        "positions": [
+          470
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0001-0065-0002",
+        "answer_index": 1,
+        "answer_text": "Richelieu \" là thư viện cổ, nhỏ hơn, nằm ở trung tâm, còn \" François-Mitterrand \" là một công trình kiến trúc hiện đại gồm bốn tòa nhà cao tầng ở khu Paris Rive Gauche",
+        "old_start": 144,
+        "new_start": 145,
+        "positions": [
+          145
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0001-0066-0005",
+        "answer_index": 0,
+        "answer_text": "Những sách, tạp chí, truyện tranh... được mượn tự do, còn các đĩa nhạc, video thì cần trả một số tiền trung bình hàng năm",
+        "old_start": 577,
+        "new_start": 578,
+        "positions": [
+          578
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0003-0017-0004",
+        "answer_index": 0,
+        "answer_text": "Năm 1898",
+        "old_start": 412,
+        "new_start": 413,
+        "positions": [
+          413
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0003-0023-0003",
+        "answer_index": 0,
+        "answer_text": "Hoa Kỳ liền kề ở phía nam và bang Alaska của Hoa Kỳ ở phía tây bắc",
+        "old_start": 67,
+        "new_start": 68,
+        "positions": [
+          68
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0003-0026-0003",
+        "answer_index": 0,
+        "answer_text": "British Columbia Duyên hải",
+        "old_start": 490,
+        "new_start": 491,
+        "positions": [
+          491
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0003-0030-0005",
+        "answer_index": 0,
+        "answer_text": "sau Chiến tranh thế giới thứ hai",
+        "old_start": 61,
+        "new_start": 62,
+        "positions": [
+          62
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0003-0033-0002",
+        "answer_index": 0,
+        "answer_text": "bầu theo đa số giản đơn trong một khu vực tuyển cử",
+        "old_start": 53,
+        "new_start": 54,
+        "positions": [
+          54
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0004-0036-0002",
+        "answer_index": 0,
+        "answer_text": "vì các điều khoản trong các hiệp ước chấm dứt Chiến tranh thế giới thứ hai",
+        "old_start": 285,
+        "new_start": 286,
+        "positions": [
+          286
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0006-0022-0002",
+        "answer_index": 1,
+        "answer_text": "huy chương (1 bạc, 5 đồng)",
+        "old_start": 464,
+        "new_start": 465,
+        "positions": [
+          465
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0012-0009-0006",
+        "answer_index": 0,
+        "answer_text": "300 người Ấn Độ và 800 người làm mướn",
+        "old_start": 189,
+        "new_start": 190,
+        "positions": [
+          190
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0012-0021-0001",
+        "answer_index": 1,
+        "answer_text": "tham dự hội nghị bàn tròn (Round Table Conference) tại Luân Đôn với tư cách người đại diện duy nhất của Quốc dân Đại hội Ấn Độ",
+        "old_start": 212,
+        "new_start": 213,
+        "positions": [
+          213
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0012-0028-0001",
+        "answer_index": 1,
+        "answer_text": "sức khoẻ sa sút và một ca mổ cần thiết",
+        "old_start": 436,
+        "new_start": 437,
+        "positions": [
+          437
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0012-0029-0002",
+        "answer_index": 1,
+        "answer_text": "ít ỏi",
+        "old_start": 368,
+        "new_start": 369,
+        "positions": [
+          369
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0012-0031-0007",
+        "answer_index": 1,
+        "answer_text": "vùng Đông và Tây Ấn Độ",
+        "old_start": 882,
+        "new_start": 883,
+        "positions": [
+          883
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0012-0033-0002",
+        "answer_index": 0,
+        "answer_text": "lăn xuống đất, chắp hai tay trước ngực ở tư thế chào",
+        "old_start": 522,
+        "new_start": 523,
+        "positions": [
+          523
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0017-0021-0002",
+        "answer_index": 2,
+        "answer_text": "Trong 30 lần nói chuyện buổi tối trên sóng phát thanh, được biết đến là \"fireside chats\"",
+        "old_start": 340,
+        "new_start": 341,
+        "positions": [
+          341
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0017-0033-0006",
+        "answer_index": 2,
+        "answer_text": "dựa vào các chương trình New Deal của ông",
+        "old_start": 66,
+        "new_start": 67,
+        "positions": [
+          67
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0017-0062-0004",
+        "answer_index": 0,
+        "answer_text": "Roosevelt trả lời rằng: \"Tôi không thể nào mà không có một cảm giác tức giận đối với những người chỉ điểm cho ông, bất cứ họ là ai, vì đã diễn đạt lại sai một cách đê hèn như thế về những hành động của tôi hay hành động của những thuộc cấp đáng tin của tôi.\"",
+        "old_start": 336,
+        "new_start": 337,
+        "positions": [
+          337
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0017-0066-0003",
+        "answer_index": 2,
+        "answer_text": "Ông ta ra lệnh cho mang rượu sâm-banh đến và còn gọi điện đến Quốc trưởng Adolf Hitler",
+        "old_start": 671,
+        "new_start": 672,
+        "positions": [
+          672
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      },
+      {
+        "split": "dev",
+        "id": "0018-0004-0006",
+        "answer_index": 0,
+        "answer_text": "tuyên bố đi theo đường lối trung lập, không liên kết, ủng hộ các phong trào giải phóng dân tộc",
+        "old_start": 6,
+        "new_start": 7,
+        "positions": [
+          7
+        ],
+        "method": "khop_nguyen_van_duy_nhat",
+        "reason": "Đáp án chỉ xuất hiện đúng một lần trong context gốc."
+      }
+    ],
+    "unresolved": [],
+    "exported": true,
+    "processed_sha256": "ae347fbe938527ebfd15691fc793f2dc35b26b198d0b41a4fd4c9bc88cb0bdc6"
+  }
+}
