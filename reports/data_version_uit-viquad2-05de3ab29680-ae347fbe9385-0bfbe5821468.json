@@ -1,0 +1,42 @@
+{
+  "dataset_version": "uit-viquad2-05de3ab29680-ae347fbe9385-0bfbe5821468",
+  "source": "taidng/UIT-ViQuAD2.0",
+  "source_revision": null,
+  "source_revision_note": "Lần tải nguồn không ghi lại commit revision.",
+  "train_sampling_seed": 1024,
+  "splits": {
+    "train": {
+      "source_split": "train",
+      "file": "data/processed/train.json",
+      "id_field": "id",
+      "sample_count": 8000,
+      "sha256": "05de3ab29680923a17cf0a0206dd68dc6771e411bb6ff9f2e6cb02ae23d16ca5",
+      "duplicate_extra_rows": 0
+    },
+    "dev": {
+      "source_split": "validation",
+      "file": "data/processed/dev.json",
+      "id_field": "id",
+      "sample_count": 3814,
+      "sha256": "ae347fbe938527ebfd15691fc793f2dc35b26b198d0b41a4fd4c9bc88cb0bdc6",
+      "duplicate_extra_rows": 0
+    },
+    "test": {
+      "source_split": "test",
+      "file": "data/processed/test.json",
+      "id_field": "id",
+      "sample_count": 7301,
+      "sha256": "0bfbe5821468e83a8468288914a96f1db6ec4664bb2da00dd9d11d6d703c6811",
+      "duplicate_extra_rows": 110
+    }
+  },
+  "duplicate_rule": "So sánh cặp (context, question) nguyên văn.",
+  "overlap_unique_pairs": {
+    "train_dev": 0,
+    "train_test": 2,
+    "dev_test": 0
+  },
+  "duplicate_policy": "Ghi nhận mẫu trùng và giữ nguyên các tập đã chốt.",
+  "dev_usage": "Tập validation có nhãn, dùng để chọn checkpoint và báo cáo điểm dev.",
+  "test_usage": "Thiếu đáp án chuẩn. Chỉ dùng để tạo dự đoán."
+}

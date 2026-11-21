@@ -12,6 +12,10 @@
       "predicted_NoAns"
     ]
   },
+  "finetune_experiment_ids": {
+    "xlm-roberta": "run-fe5f5f5b27578bd4",
+    "mdeberta": "run-a28388a1c7754133"
+  },
   "methods": {
     "Jaccard": {
       "groups": {
@@ -107,29 +111,89 @@
       "groups": {
         "HasAns": {
           "count": 2653,
-          "EM_percent": 43.874858650584244,
-          "F1_percent": 59.31717060881078
+          "EM_percent": 44.402563136072374,
+          "F1_percent": 58.50562353099868
         },
         "NoAns": {
           "count": 1161,
-          "EM_percent": 32.041343669250644,
-          "F1_percent": 32.041343669250644
+          "EM_percent": 34.7114556416882,
+          "F1_percent": 34.7114556416882
         }
       },
-      "answerability_accuracy_percent": 64.2370214997378,
-      "no_answer_recall_percent": 32.041343669250644,
+      "answerability_accuracy_percent": 63.37178814892501,
+      "no_answer_recall_percent": 34.7114556416882,
       "confusion_matrix_labels": [
         "HasAns",
         "NoAns"
       ],
       "confusion_matrix": [
         [
-          2078,
-          575
+          2014,
+          639
         ],
         [
-          789,
-          372
+          758,
+          403
+        ]
+      ]
+    },
+    "XLM-R seed 123": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 42.17866566151527,
+          "F1_percent": 57.08131881718896
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 37.2093023255814,
+          "F1_percent": 37.2093023255814
+        }
+      },
+      "answerability_accuracy_percent": 63.08337703198742,
+      "no_answer_recall_percent": 37.2093023255814,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1974,
+          679
+        ],
+        [
+          729,
+          432
+        ]
+      ]
+    },
+    "XLM-R seed 1024": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 35.39389370523935,
+          "F1_percent": 48.022162695608216
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 49.09560723514212,
+          "F1_percent": 49.09560723514212
+        }
+      },
+      "answerability_accuracy_percent": 59.7535395909806,
+      "no_answer_recall_percent": 49.09560723514212,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          1709,
+          944
+        ],
+        [
+          591,
+          570
         ]
       ]
     },
@@ -138,58 +202,28 @@
         "HasAns": {
           "count": 2653,
           "EM_percent": 0.0,
-          "F1_percent": 0.5535354752579016
+          "F1_percent": 0.0
         },
         "NoAns": {
           "count": 1161,
-          "EM_percent": 56.33074935400517,
-          "F1_percent": 56.33074935400517
+          "EM_percent": 100.0,
+          "F1_percent": 100.0
         }
       },
-      "answerability_accuracy_percent": 49.213424226533824,
-      "no_answer_recall_percent": 47.459086993970715,
+      "answerability_accuracy_percent": 30.44048243314106,
+      "no_answer_recall_percent": 100.0,
       "confusion_matrix_labels": [
         "HasAns",
         "NoAns"
       ],
       "confusion_matrix": [
         [
-          1326,
-          1327
+          0,
+          2653
         ],
         [
-          610,
-          551
-        ]
-      ]
-    },
-    "XLM-R seed 123": {
-      "groups": {
-        "HasAns": {
-          "count": 2653,
-          "EM_percent": 34.640030154542025,
-          "F1_percent": 45.860737431582464
-        },
-        "NoAns": {
-          "count": 1161,
-          "EM_percent": 55.29715762273902,
-          "F1_percent": 55.29715762273902
-        }
-      },
-      "answerability_accuracy_percent": 56.92186680650236,
-      "no_answer_recall_percent": 55.29715762273902,
-      "confusion_matrix_labels": [
-        "HasAns",
-        "NoAns"
-      ],
-      "confusion_matrix": [
-        [
-          1529,
-          1124
-        ],
-        [
-          519,
-          642
+          0,
+          1161
         ]
       ]
     },
@@ -198,58 +232,28 @@
         "HasAns": {
           "count": 2653,
           "EM_percent": 0.0,
-          "F1_percent": 0.2326103354762671
+          "F1_percent": 0.0
         },
         "NoAns": {
           "count": 1161,
-          "EM_percent": 57.27820844099914,
-          "F1_percent": 57.27820844099914
+          "EM_percent": 100.0,
+          "F1_percent": 100.0
         }
       },
-      "answerability_accuracy_percent": 49.213424226533824,
-      "no_answer_recall_percent": 47.459086993970715,
+      "answerability_accuracy_percent": 30.44048243314106,
+      "no_answer_recall_percent": 100.0,
       "confusion_matrix_labels": [
         "HasAns",
         "NoAns"
       ],
       "confusion_matrix": [
         [
-          1326,
-          1327
+          0,
+          2653
         ],
         [
-          610,
-          551
-        ]
-      ]
-    },
-    "XLM-R seed 1024": {
-      "groups": {
-        "HasAns": {
-          "count": 2653,
-          "EM_percent": 38.145495665284585,
-          "F1_percent": 50.88961227768362
-        },
-        "NoAns": {
-          "count": 1161,
-          "EM_percent": 45.47803617571059,
-          "F1_percent": 45.47803617571059
-        }
-      },
-      "answerability_accuracy_percent": 61.221814368117464,
-      "no_answer_recall_percent": 45.47803617571059,
-      "confusion_matrix_labels": [
-        "HasAns",
-        "NoAns"
-      ],
-      "confusion_matrix": [
-        [
-          1807,
-          846
-        ],
-        [
-          633,
-          528
+          0,
+          1161
         ]
       ]
     },
@@ -257,29 +261,119 @@
       "groups": {
         "HasAns": {
           "count": 2653,
-          "EM_percent": 0.0,
-          "F1_percent": 0.003426652503169653
+          "EM_percent": 0.03769317753486619,
+          "F1_percent": 4.506282809162922
         },
         "NoAns": {
           "count": 1161,
-          "EM_percent": 99.5693367786391,
-          "F1_percent": 99.5693367786391
+          "EM_percent": 49.181739879414295,
+          "F1_percent": 49.181739879414295
         }
       },
-      "answerability_accuracy_percent": 30.702674357629785,
-      "no_answer_recall_percent": 99.5693367786391,
+      "answerability_accuracy_percent": 48.9512323020451,
+      "no_answer_recall_percent": 48.148148148148145,
       "confusion_matrix_labels": [
         "HasAns",
         "NoAns"
       ],
       "confusion_matrix": [
         [
-          15,
-          2638
+          1308,
+          1345
         ],
         [
-          5,
-          1156
+          602,
+          559
+        ]
+      ]
+    },
+    "PhoBERT seed 1024": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 48.774971730116846,
+          "F1_percent": 66.88153048550896
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 31.61068044788975,
+          "F1_percent": 31.61068044788975
+        }
+      },
+      "answerability_accuracy_percent": 67.51442055584688,
+      "no_answer_recall_percent": 31.61068044788975,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2208,
+          445
+        ],
+        [
+          794,
+          367
+        ]
+      ]
+    },
+    "PhoBERT seed 123": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 47.68186958160573,
+          "F1_percent": 64.88418087573207
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 35.48664944013781,
+          "F1_percent": 35.48664944013781
+        }
+      },
+      "answerability_accuracy_percent": 66.99003670686943,
+      "no_answer_recall_percent": 35.48664944013781,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2143,
+          510
+        ],
+        [
+          749,
+          412
+        ]
+      ]
+    },
+    "PhoBERT seed 42": {
+      "groups": {
+        "HasAns": {
+          "count": 2653,
+          "EM_percent": 48.36034677723332,
+          "F1_percent": 64.51075615755295
+        },
+        "NoAns": {
+          "count": 1161,
+          "EM_percent": 36.434108527131784,
+          "F1_percent": 36.434108527131784
+        }
+      },
+      "answerability_accuracy_percent": 66.01992658626115,
+      "no_answer_recall_percent": 36.434108527131784,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          2095,
+          558
+        ],
+        [
+          738,
+          423
         ]
       ]
     }

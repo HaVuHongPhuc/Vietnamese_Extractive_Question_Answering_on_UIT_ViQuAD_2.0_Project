@@ -1,0 +1,11 @@
+{
+  "run_identity": {
+    "experiment_fingerprint": "cf8c833791ecbadf66ea48f9e73d2b238223981682bd390b5f7318428aa13a71",
+    "model": "xlm-roberta",
+    "seed": 42
+  },
+  "training_attempt": "a-2agzg1ja",
+  "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\runs\\run-cf8c833791ecbadf\\xlm-roberta\\seed-42\\a-2agzg1ja\\checkpoint-399",
+  "best_epoch": 3.0,
+  "training_seconds": null
+}

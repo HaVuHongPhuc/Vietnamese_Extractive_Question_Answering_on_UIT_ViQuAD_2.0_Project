@@ -1,0 +1,16 @@
+{
+  "experiment_id": "run-a28388a1c7754133",
+  "dataset_version": "uit-viquad2-05de3ab29680-ae347fbe9385-0bfbe5821468",
+  "requested_seeds": [
+    42,
+    123,
+    1024
+  ],
+  "best_seed": 42,
+  "best_f1": 30.440482433141057,
+  "best_exact_match": 30.440482433141057,
+  "mean_f1": 26.32889077894679,
+  "std_f1": 5.814668680301557,
+  "mean_exact_match": 25.292780982345743,
+  "std_exact_match": 7.279949206762391
+}

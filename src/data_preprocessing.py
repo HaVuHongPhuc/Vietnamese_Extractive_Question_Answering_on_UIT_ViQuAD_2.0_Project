@@ -1,228 +1,188 @@
+"""Tiền xử lý Extractive QA cho XLM-RoBERTa và mDeBERTa.
+
+Dữ liệu gốc lưu vị trí đáp án theo ký tự. Tokenizer chia câu hỏi và đoạn
+văn thành token; module này dùng offset của token để tạo nhãn start/end.
+Khi chấm điểm, module giữ ID và offset context để trích lại văn bản gốc.
+
+Ví dụ: "Phạm Văn Đồng sinh năm 1906." có đáp án "1906" ở [23, 27).
+Chỉ số token của "1906" phụ thuộc tokenizer và vị trí câu hỏi trong feature.
 """
-Module: data_preprocessing.py
-Chức năng: Tiền xử lý dữ liệu và ánh xạ vị trí đáp án (Offset Mapping)
-cho bài toán Extractive QA (Hỗ trợ câu hỏi unanswerable).
-"""
 
-"""" 
-LÝ THUYẾT CẦN NHỚ:
-src/data_preprocessing.py là bước chuẩn bị dữ liệu trước khi đưa câu hỏi và context
-vào mô hình QA. Nó không tự huấn luyện mô hình; train_qa.py gọi các hàm trong
-file này để chuyển dữ liệu sang dạng mô hình cần.
- -Luồng chính:
-    Dữ liệu gốc
-        + tokenizer chia câu hỏi/context thành token
-        + data_preprocessing.py tạo feature và nhãn
-        + mô hình nhận feature để train hoặc dự đoán
+from typing import Any
 
-  -Hai hàm trong file có vai trò khác nhau:
-        + prepare_train_features chuẩn bị dữ liệu huấn luyện. Đáp án trong dataset được ghi bằng
-        vị trí ký tự, nhưng mô hình cần vị trí token. Hàm dùng offset_mapping để đổi vị trí
-        ký tự đáp án thành start_positions và end_positions. Nếu context dài, hàm chia nó thành
-        các cửa sổ có phần chồng lặp. Với câu không có đáp án, hoặc cửa sổ hiện tại không chứa
-        đáp án, nhãn được gán về token [CLS].
+MAX_SEQ_LENGTH = 384
+DOC_STRIDE = 128
 
-        + prepare_validation_features chuẩn bị validation/test để dự đoán. Hàm tạo các cửa sổ
-        tương tự, đồng thời giữ example_id và offset của token trong context. Các thông tin
-        này giúp bước sau đổi dự đoán của mô hình từ vị trí token về đoạn văn gốc để chấm điểm.
 
-Ví dụ, dataset nói đáp án "1906" bắt đầu ở ký tự 23. Hàm huấn luyện tìm token nào bao
-phủ khoảng ký tự [23, 27), rồi ghi chỉ số token đó làm nhãn cho mô hình học.
-
-"""
-from typing import Dict, Any
-def prepare_train_features(
-    examples: Dict[str, Any],
+def _tokenize_questions_and_contexts(
+    examples: dict[str, Any],
     tokenizer: Any,
-    max_seq_length: int = 384,
-    doc_stride: int = 128
-) -> Dict[str, Any]:
-    """
-    Tiền xử lý tập Train: Tokenize, trượt cửa sổ và ánh xạ span từ ký tự sang token.
-    """
-    # Bước 1: Chuẩn hóa đầu câu hỏi
-    # Làm sạch khoảng trắng đầu/cuối của câu hỏi
-    examples["question"] = [q.lstrip() for q in examples["question"]]
+    max_seq_length: int,
+    doc_stride: int,
+) -> Any:
+    """Tạo các cửa sổ cho cặp như "Ở đâu?" và "Hà Nội rất đẹp."."""
+    # Tạo list mới: lstrip bỏ khoảng trắng đầu câu hỏi. Context giữ nguyên
+    # từng ký tự vì answer_start được đo trên chính chuỗi đó.
+    questions = [question.lstrip() for question in examples["question"]]
 
-    # Bước 2: Tokenize cặp văn bản
-    # Tokenize đồng thời Question và Context
-    tokenized_examples = tokenizer(
-        examples["question"],
-        examples["context"],
-       truncation="only_second",          # Chỉ cắt bớt context, giữ nguyên 100% câu hỏi
-        max_length=max_seq_length,         # Độ dài tối đa (ví dụ: 384 tokens)
-        stride=doc_stride,                 # Khoảng gối đầu giữa 2 lát cắt (ví dụ: 128 tokens)
-        return_overflowing_tokens=True,    # Context dài quá 384 thì tự động cắt thành nhiều lát
-        return_offsets_mapping=True,       # Trả về tọa độ ký tự tương ứng của từng token
-        padding="max_length",              # Chèn thêm token padding cho đủ 384 token để GPU gom batch
-    )
-
-    """
-    truncation="only_second": Trong một cặp (câu hỏi, ngữ cảnh), câu hỏi là yếu tố
-    bắt buộc phải giữ nguyên vẹn để mô hình hiểu đúng ý. Nếu tổng độ dài vượt quá 384,
-    hệ thống chỉ cắt ngắn ngữ cảnh (context), không bao giờ cắt bớt câu hỏi.
-
-    - stride=doc_stride kết hợp return_overflowing_tokens=True: Nếu đoạn ngữ cảnh dài tới 600 từ,
-    thư viện sẽ tự động xẻ đoạn văn thành nhiều lát cắt nhỏ (gọi là các features):
-
-       + Lát 1: Từ token 0 đến 384.
-
-       + Lát 2: Từ token 256 đến 640 (gối đầu 128 token lên lát 1 để tránh việc câu trả lời bị
-       chặt đứt đôi ở ngay điểm cắt).
-
-    - return_offsets_mapping=True: Yêu cầu Tokenizer lưu lại tọa độ ký tự
-    (start_char, end_char) của từng token trong chuỗi văn bản gốc
-    để phục vụ việc dò tìm ở các bước sau.
-    """
-
-
-    # Bước 3: Lấy metadata phụ ra
-    # Tách thông tin trung gian để xử lý
-    sample_mapping = tokenized_examples.pop("overflow_to_sample_mapping")
-    offset_mapping = tokenized_examples.pop("offset_mapping")
-
-    # Bước 4: Tạo danh sách nhãn
-    tokenized_examples["start_positions"] = []
-    tokenized_examples["end_positions"] = []
-
-    """
-    - pop("overflow_to_sample_mapping"): Khi một câu gốc bị xẻ thành 2 hoặc 3 lát cắt,
-    danh sách sample_mapping sẽ ghi lại xem lát cắt hiện tại được sinh ra từ
-    câu hỏi gốc thứ mấy trong tập dữ liệu. Dùng lệnh pop() để lấy dữ liệu ra xử lý và
-    xóa khỏi dictionary, tránh làm PyTorch báo lỗi vì không nhận diện được
-    trường này lúc nạp vào mô hình.
-
-    - pop("offset_mapping"): Lấy bảng tọa độ ký tự ra để dò tìm vị trí token.
-    
-    - Hai mảng rỗng start_positions và end_positions: Đây là nhãn đầu ra
-    mà mô hình Transformer cần học (dự đoán token bắt đầu và token kết thúc).
-    """
-
-
-    # Bước 5: Xác định cửa sổ và CLS
-    # Phân loại Token và Xác định vị trí CLS
-    for i, offsets in enumerate(offset_mapping):
-        input_ids = tokenized_examples["input_ids"][i]
-        cls_index = input_ids.index(tokenizer.cls_token_id)
-
-        # Xác định sequence: None (special token), 0 (question), 1 (context)
-        sequence_ids = tokenized_examples.sequence_ids(i)
-        sample_index = sample_mapping[i]
-        answers = examples["answers"][sample_index]
-        is_impossible = examples.get("is_impossible", [False] * len(sample_mapping))[sample_index]
-
-        # Bước 6: Gán CLS cho no-answer
-        # Trường hợp 1: Câu hỏi không có đáp án
-        if is_impossible or len(answers["answer_start"]) == 0:
-            tokenized_examples["start_positions"].append(cls_index)
-            tokenized_examples["end_positions"].append(cls_index)
-            continue
-
-        # Bước 7: Tính biên ký tự đáp án
-        # Trường hợp 2: Câu hỏi có đáp án
-        start_char = answers["answer_start"][0]
-        end_char = start_char + len(answers["text"][0])
-
-        # Bước 8: Tìm phần context trong feature
-        # Tìm phạm vi token thuộc phần Context
-        token_start_index = 0
-        while sequence_ids[token_start_index] != 1:
-            token_start_index += 1
-
-        token_end_index = len(input_ids) - 1
-        while sequence_ids[token_end_index] != 1:
-            token_end_index -= 1
-
-        # Bước 9: Xem đáp án có nằm trọn trong cửa sổ không
-        # Kiểm tra xem đáp án có nằm trọn trong đoạn trượt này không
-        if not (offsets[token_start_index][0] <= start_char and offsets[token_end_index][1] >= end_char):
-            # Nằm ngoài cửa sổ trượt -> đánh dấu nhãn unanswerable cho feature này
-            tokenized_examples["start_positions"].append(cls_index)
-            tokenized_examples["end_positions"].append(cls_index)
-        else:
-            # Bước 10: Ánh xạ start/end token
-            # Tìm token bắt đầu
-            while token_start_index < len(offsets) and offsets[token_start_index][0] <= start_char:
-                token_start_index += 1
-            start_position = token_start_index - 1
-
-            # Tìm token kết thúc
-            while offsets[token_end_index][1] >= end_char:
-                token_end_index -= 1
-            end_position = token_end_index + 1
-
-            tokenized_examples["start_positions"].append(start_position)
-            tokenized_examples["end_positions"].append(end_position)
-
-    # Bước 11: Trả feature cho Trainer
-    return tokenized_examples
-
-
-def prepare_validation_features(
-    examples: Dict[str, Any],
-    tokenizer: Any,
-    max_seq_length: int = 384,
-    doc_stride: int = 128
-) -> Dict[str, Any]:
-
-    # Tiền xử lý tập Validation/Test: Giữ lại offset_mapping và example_id
-    # để phục vụ việc map logits dự đoán ngược lại văn bản gốc lúc đánh giá.
-
-    # Bước 1: Tokenize giống train
-    examples["question"] = [q.lstrip() for q in examples["question"]]
-
-    tokenized_examples = tokenizer(
-        examples["question"],
+    # 384 là số token tối đa của cả câu hỏi, context và token đặc biệt.
+    # only_second yêu cầu cắt context nếu quá dài. Câu hỏi phải đủ ngắn để
+    # còn chỗ cho context và phần chồng lặp; tokenizer có thể báo lỗi nếu không đủ.
+    # Stride 128 là số token context dùng chung giữa hai cửa sổ kề nhau.
+    # Output input_ids/attention_mask có shape [số feature, max_seq_length].
+    return tokenizer(
+        questions,
         examples["context"],
         truncation="only_second",
         max_length=max_seq_length,
         stride=doc_stride,
         return_overflowing_tokens=True,
         return_offsets_mapping=True,
-        padding="max_length",
+        padding="max_length",  # Cố định độ dài để gom các feature thành batch.
     )
 
-    # Bước 2: Giữ nguồn gốc feature
+
+def _first_answer_spans(examples: dict[str, Any]) -> list[tuple[int, int] | None]:
+    """Lấy khoảng ký tự của đáp án đầu tiên. Ví dụ "Hà Nội" -> [0, 6)."""
+    # Nhãn gốc tính theo số câu hỏi. Một câu hỏi có thể sinh nhiều feature
+    # nhưng tất cả feature của nó đều tra cùng một nhãn qua sample_mapping.
+    sample_count = len(examples["question"])
+    labels = examples.get("is_impossible", [False] * sample_count)
+    if len(labels) != sample_count:
+        raise ValueError("Số nhãn is_impossible phải bằng số câu hỏi trong batch.")
+    spans: list[tuple[int, int] | None] = []
+
+    for sample_index, is_impossible in enumerate(labels):
+        if is_impossible:
+            spans.append(None)
+            continue
+
+        answers = examples["answers"][sample_index]
+        # Đọc cả hai danh sách trước khi lấy [0]. Nếu dữ liệu chỉ có text
+        # hoặc chỉ có offset thì không thể tạo nhãn token đáng tin cậy.
+        if not isinstance(answers, dict):
+            raise ValueError(f"Mẫu {sample_index}: answers phải là một dictionary.")
+        texts = answers.get("text")
+        starts = answers.get("answer_start")
+        if not isinstance(texts, list) or not isinstance(starts, list):
+            raise ValueError(f"Mẫu {sample_index}: thiếu answers.text hoặc answers.answer_start.")
+        if len(texts) != len(starts):
+            raise ValueError(f"Mẫu {sample_index}: text và answer_start phải cùng số phần tử.")
+
+        # Với dữ liệu SQuAD không có cột is_impossible, hai list rỗng
+        # biểu thị câu không có đáp án. Nhãn False ghi rõ thì phải có gold.
+        if not texts:
+            if "is_impossible" in examples:
+                raise ValueError(f"Mẫu {sample_index}: được đánh dấu có đáp án nhưng thiếu đáp án.")
+            spans.append(None)
+            continue
+
+        answer_text = texts[0]
+        start_char = starts[0]
+        if not isinstance(answer_text, str) or not answer_text.strip():
+            raise ValueError(f"Mẫu {sample_index}: text của đáp án đầu tiên bị rỗng.")
+        if type(start_char) is not int or start_char < 0:
+            raise ValueError(f"Mẫu {sample_index}: answer_start phải là số nguyên không âm.")
+
+        # Python cắt theo [start, end), nên end_char nằm ngay sau ký tự
+        # cuối cùng. Vẫn giữ toàn bộ đáp án chuẩn cho bộ chấm EM/F1 riêng.
+        end_char = start_char + len(answer_text)
+        context = examples["context"][sample_index]
+        if context[start_char:end_char] != answer_text:
+            raise ValueError(f"Mẫu {sample_index}: answer_start không khớp văn bản đáp án.")
+        spans.append((start_char, end_char))
+
+    return spans
+
+
+def prepare_train_features(
+    examples: dict[str, Any],
+    tokenizer: Any,
+    max_seq_length: int = MAX_SEQ_LENGTH,
+    doc_stride: int = DOC_STRIDE,
+) -> dict[str, Any]:
+    """Tạo nhãn token start/end từ đáp án gốc, ví dụ "Hà Nội" ở đầu context."""
+    # Bước 1–2: Kiểm tra đáp án rồi token hóa câu hỏi và context.
+    answer_spans = _first_answer_spans(examples)
+    tokenized_examples = _tokenize_questions_and_contexts(
+        examples, tokenizer, max_seq_length, doc_stride
+    )
+
+    # Bước 3–4: Lấy thông tin ánh xạ ra khỏi feature đưa vào mô hình.
+    sample_mapping = tokenized_examples.pop("overflow_to_sample_mapping")
+    offset_mapping = tokenized_examples.pop("offset_mapping")
+    start_positions = []
+    end_positions = []
+
+    # Bước 5–10: Mỗi cửa sổ nhận một cặp chỉ số, nên shape của mỗi list
+    # nhãn là [số feature]. Mặc định trỏ về CLS nếu thiếu đáp án trọn vẹn.
+    for feature_index, offsets in enumerate(offset_mapping):
+        input_ids = tokenized_examples["input_ids"][feature_index]
+        cls_index = input_ids.index(tokenizer.cls_token_id)
+        start_position = cls_index
+        end_position = cls_index
+        answer_span = answer_spans[sample_mapping[feature_index]]
+
+        if answer_span is not None:
+            start_char, end_char = answer_span
+            sequence_ids = tokenized_examples.sequence_ids(feature_index)
+            context_positions = []
+            for token_index, sequence_id in enumerate(sequence_ids):
+                offset_start, offset_end = offsets[token_index]
+                if sequence_id == 1 and offset_start < offset_end:
+                    context_positions.append(token_index)
+
+            if context_positions:
+                first_context = context_positions[0]
+                last_context = context_positions[-1]
+
+                # Cửa sổ phải chứa cả hai biên ký tự của đáp án.
+                if offsets[first_context][0] <= start_char and offsets[last_context][1] >= end_char:
+                    for token_index in context_positions:
+                        offset_start, offset_end = offsets[token_index]
+                        if offset_start <= start_char < offset_end:
+                            start_position = token_index
+                        if offset_start < end_char <= offset_end:
+                            end_position = token_index
+
+                    # Một biên không rơi vào token (ví dụ bị tokenizer bỏ qua)
+                    # thì cả feature vẫn mang nhãn CLS thay vì nhãn nửa vời.
+                    if start_position == cls_index or end_position == cls_index or start_position > end_position:
+                        start_position = cls_index
+                        end_position = cls_index
+
+        start_positions.append(start_position)
+        end_positions.append(end_position)
+
+    # Bước 11: Trả về đúng một nhãn bắt đầu và kết thúc cho mỗi feature.
+    tokenized_examples["start_positions"] = start_positions
+    tokenized_examples["end_positions"] = end_positions
+    return tokenized_examples
+
+
+def prepare_validation_features(
+    examples: dict[str, Any],
+    tokenizer: Any,
+    max_seq_length: int = MAX_SEQ_LENGTH,
+    doc_stride: int = DOC_STRIDE,
+) -> dict[str, Any]:
+    """Giữ ID và offset context để trích lại đáp án, ví dụ "Hà Nội"."""
+    # Bước 1–2: Tạo cửa sổ giống train và giữ ID của câu hỏi gốc.
+    tokenized_examples = _tokenize_questions_and_contexts(
+        examples, tokenizer, max_seq_length, doc_stride
+    )
     sample_mapping = tokenized_examples.pop("overflow_to_sample_mapping")
     tokenized_examples["example_id"] = []
 
-    for i in range(len(tokenized_examples["input_ids"])):
-        sequence_ids = tokenized_examples.sequence_ids(i)
-        sample_index = sample_mapping[i]
+    # Bước 3: Chỉ token context có offset để decoder trích văn bản.
+    # offset_mapping có shape [số feature, max_seq_length].
+    for feature_index, sample_index in enumerate(sample_mapping):
+        sequence_ids = tokenized_examples.sequence_ids(feature_index)
         tokenized_examples["example_id"].append(examples["id"][sample_index])
+        offsets = tokenized_examples["offset_mapping"][feature_index]
+        for token_index, sequence_id in enumerate(sequence_ids):
+            if sequence_id != 1:
+                offsets[token_index] = None
 
-        # Bước 3: Ẩn offset không thuộc context
-        # Đặt offset của các token không thuộc context về None để lúc decode bỏ qua
-        tokenized_examples["offset_mapping"][i] = [
-            (o if sequence_ids[k] == 1 else None)
-            for k, o in enumerate(tokenized_examples["offset_mapping"][i])
-        ]
-
-    # Bước 4: Trả metadata cho giải mã
+    # Bước 4: Trả feature và metadata cho bộ giải mã.
     return tokenized_examples
-
-"""
-1. Vấn đề gốc rễ: Sự lệch pha giữa Ký tự và TokenTrong file dữ liệu gốc (train.json),
-câu trả lời được lưu theo vị trí ký tự (Character index):Đoạn văn: "Phạm Văn Đồng sinh năm 1906 tại
-Quảng Ngãi..."Câu hỏi: "Phạm Văn Đồng sinh năm nào?"Đáp án: "1906", answer_start = 23 (nghĩa là
-đếm từ chữ P đầu tiên đến chữ số 1 của năm 1906 vừa đúng 14 ký tự).Tuy nhiên,
-mô hình AI (Transformer) không đọc từng ký tự. Khi văn bản đi vào mô hình, bộ phân tách
-từ (Tokenizer) sẽ băm đoạn văn thành các Token (mảnh từ):
-PlaintextChỉ số Token:   [0]     [1]     [2]     [3]     [4]    [5]      [6]     [7]     ...
-         Các Token:     [<s>]  [Phạm]  [Văn]   [Đồng]  [sinh]  [năm]   [1906]   [tại]    ...
-Lúc này, con số 14 ký tự hoàn toàn vô nghĩa với mô hình. Mô hình
-cần biết:"Đáp án bắt đầu từ Token số 6 và kết thúc ở Token số 6."Hàm data_preprocessing.py
-chính là "người phiên dịch": Nó đọc chỉ số ký tự (14), tra xem ký tự đó rơi trúng
-Token số mấy trong danh sách Token, rồi gắn nhãn start_positions = 6 và end_positions = 6 để đưa
-vào huấn luyện.
-
-2. Hai nhiệm vụ chính của file data_preprocessing.pyÁnh xạ vị trí (offset_mapping):
-Tokenizer lưu lại bảng tọa độ ký tự của từng token (ví dụ: Token [1906] bao phủ từ ký
-tự thứ 14 đến 18).Code sẽ dò tọa độ này để tìm ra index của token bắt đầu và kết thúc.Cắt lát văn bản
-dài (Sliding Window):Mô hình chỉ nhận tối đa 384 token. Nhưng một bài viết Wikipedia có thể
-dài tới 1.000 token.Ta phải cắt bài viết thành nhiều đoạn nhỏ trượt gối đầu lên
-nhau:Đoạn 1: từ token 0 $\rightarrow$ 384.Đoạn 2: từ token 256 $\rightarrow$ 640 (gối đầu 128token
-để không làm đứt câu).Nếu đoạn cắt nào chứa câu trả lời $\rightarrow$ gán token index của câu
-trả lời đó.Nếu đoạn cắt nào không chứa câu trả lời (hoặc câu hỏi unanswerable) $\rightarrow$ gán
-nhãn (0, 0) (trỏ về token đặc biệt [CLS] ở vị trí đầu tiên, quy ước là "không có câu trả lời").
-"""

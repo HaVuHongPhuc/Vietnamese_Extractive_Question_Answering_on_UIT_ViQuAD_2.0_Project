@@ -1,0 +1,74 @@
+{
+  "model": "xlm-roberta",
+  "checkpoint": "xlm-roberta-base",
+  "seed": 42,
+  "dataset_version": "uit-viquad2-05de3ab29680-ae347fbe9385-0bfbe5821468",
+  "data": {
+    "dataset_version": "uit-viquad2-05de3ab29680-ae347fbe9385-0bfbe5821468",
+    "manifest": "reports/data_version_uit-viquad2-05de3ab29680-ae347fbe9385-0bfbe5821468.json",
+    "splits": {
+      "train": {
+        "file": "data/processed/train.json",
+        "sha256": "05de3ab29680923a17cf0a0206dd68dc6771e411bb6ff9f2e6cb02ae23d16ca5"
+      },
+      "dev": {
+        "file": "data/processed/dev.json",
+        "sha256": "ae347fbe938527ebfd15691fc793f2dc35b26b198d0b41a4fd4c9bc88cb0bdc6"
+      }
+    }
+  },
+  "source_versions": {
+    "model": {
+      "repo_id": "xlm-roberta-base",
+      "revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089"
+    },
+    "tokenizer": {
+      "repo_id": "xlm-roberta-base",
+      "revision": "e73636d4f797dec63c3081bb6ed5c7b0bb3f2089",
+      "use_fast": true
+    }
+  },
+  "preprocessing": {
+    "max_seq_length": 384,
+    "doc_stride": 128
+  },
+  "training_config": {
+    "learning_rate": 2e-05,
+    "per_device_train_batch_size": 4,
+    "per_device_eval_batch_size": 8,
+    "gradient_accumulation_steps": 8,
+    "num_train_epochs": 3,
+    "weight_decay": 0.01,
+    "warmup_steps": 0,
+    "bf16": true,
+    "fp16": false,
+    "logging_strategy": "steps",
+    "logging_steps": 100,
+    "save_strategy": "epoch",
+    "load_best_model_at_end": true,
+    "metric_for_best_model": "f1",
+    "greater_is_better": true,
+    "save_total_limit": 2,
+    "dataloader_num_workers": 0,
+    "report_to": "none",
+    "eval_strategy": "epoch",
+    "seed": 42,
+    "data_seed": 42
+  },
+  "experiment_id": "run-fe5f5f5b27578bd4",
+  "run_identity": {
+    "experiment_fingerprint": "fe5f5f5b27578bd4fe9933f024d061f62d68414ebab502c271e635c8cb8ad3b2",
+    "model": "xlm-roberta",
+    "seed": 42
+  },
+  "run_label": null,
+  "training_attempt": "a-d6f_frnm",
+  "best_checkpoint": "C:\\Users\\havuh\\OneDrive\\Desktop\\HocTap\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\finetune\\runs\\run-fe5f5f5b27578bd4\\xlm-roberta\\seed-42\\a-d6f_frnm\\checkpoint-795",
+  "best_epoch": 3.0,
+  "best_eval_f1": 51.262564034541036,
+  "best_eval_exact_match": 41.45254326166754,
+  "training_seconds": 397.27,
+  "effective_batch_size": 32,
+  "epochs_requested": 3,
+  "bf16": true
+}

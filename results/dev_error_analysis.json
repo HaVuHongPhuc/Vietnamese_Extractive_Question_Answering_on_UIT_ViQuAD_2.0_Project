@@ -1,0 +1,316 @@
+{
+  "split": "dev",
+  "sample_count": 3814,
+  "finetune_experiment_ids": {
+    "xlm-roberta": "run-fe5f5f5b27578bd4",
+    "mdeberta": "run-a28388a1c7754133"
+  },
+  "percentage_denominator": "toàn bộ số câu dev của từng seed",
+  "error_labels": {
+    "missed_answer": "Có đáp án nhưng trả rỗng",
+    "spurious_answer": "Không có đáp án nhưng vẫn trả lời",
+    "span_mismatch": "Có đáp án, có trả lời nhưng EM = 0"
+  },
+  "counts_by_seed": [
+    {
+      "architecture": "XLM-R",
+      "seed": 42,
+      "dev_count": 3814,
+      "missed_answer": 639,
+      "missed_answer_pct_dev": 16.754063974829574,
+      "spurious_answer": 758,
+      "spurious_answer_pct_dev": 19.874147876245413,
+      "span_mismatch": 836,
+      "span_mismatch_pct_dev": 21.919244887257474
+    },
+    {
+      "architecture": "XLM-R",
+      "seed": 123,
+      "dev_count": 3814,
+      "missed_answer": 679,
+      "missed_answer_pct_dev": 17.802831672784478,
+      "spurious_answer": 729,
+      "spurious_answer_pct_dev": 19.113791295228108,
+      "span_mismatch": 855,
+      "span_mismatch_pct_dev": 22.41740954378605
+    },
+    {
+      "architecture": "XLM-R",
+      "seed": 1024,
+      "dev_count": 3814,
+      "missed_answer": 944,
+      "missed_answer_pct_dev": 24.75091767173571,
+      "spurious_answer": 591,
+      "spurious_answer_pct_dev": 15.495542737283692,
+      "span_mismatch": 770,
+      "span_mismatch_pct_dev": 20.188778185631882
+    },
+    {
+      "architecture": "mDeBERTa",
+      "seed": 42,
+      "dev_count": 3814,
+      "missed_answer": 2653,
+      "missed_answer_pct_dev": 69.55951756685894,
+      "spurious_answer": 0,
+      "spurious_answer_pct_dev": 0.0,
+      "span_mismatch": 0,
+      "span_mismatch_pct_dev": 0.0
+    },
+    {
+      "architecture": "mDeBERTa",
+      "seed": 123,
+      "dev_count": 3814,
+      "missed_answer": 2653,
+      "missed_answer_pct_dev": 69.55951756685894,
+      "spurious_answer": 0,
+      "spurious_answer_pct_dev": 0.0,
+      "span_mismatch": 0,
+      "span_mismatch_pct_dev": 0.0
+    },
+    {
+      "architecture": "mDeBERTa",
+      "seed": 1024,
+      "dev_count": 3814,
+      "missed_answer": 1345,
+      "missed_answer_pct_dev": 35.26481384373361,
+      "spurious_answer": 602,
+      "spurious_answer_pct_dev": 15.78395385422129,
+      "span_mismatch": 1307,
+      "span_mismatch_pct_dev": 34.26848453067645
+    },
+    {
+      "architecture": "PhoBERT",
+      "seed": 42,
+      "dev_count": 3814,
+      "missed_answer": 558,
+      "missed_answer_pct_dev": 14.630309386470897,
+      "spurious_answer": 738,
+      "spurious_answer_pct_dev": 19.34976402726796,
+      "span_mismatch": 812,
+      "span_mismatch_pct_dev": 21.28998426848453
+    },
+    {
+      "architecture": "PhoBERT",
+      "seed": 123,
+      "dev_count": 3814,
+      "missed_answer": 510,
+      "missed_answer_pct_dev": 13.371788148925013,
+      "spurious_answer": 749,
+      "spurious_answer_pct_dev": 19.638175144205558,
+      "span_mismatch": 878,
+      "span_mismatch_pct_dev": 23.020450970110122
+    },
+    {
+      "architecture": "PhoBERT",
+      "seed": 1024,
+      "dev_count": 3814,
+      "missed_answer": 445,
+      "missed_answer_pct_dev": 11.667540639748296,
+      "spurious_answer": 794,
+      "spurious_answer_pct_dev": 20.818038804404825,
+      "span_mismatch": 914,
+      "span_mismatch_pct_dev": 23.964341898269534
+    }
+  ],
+  "representative_seeds": {
+    "XLM-R": "XLM-R seed 42",
+    "mDeBERTa": "mDeBERTa seed 42",
+    "PhoBERT": "PhoBERT seed 1024"
+  },
+  "examples": {
+    "missed_answer": [
+      {
+        "id": "0017-0029-0002",
+        "question": "Tỉ lệ gia tăng việc làm trung bình hằng năm dưới thời Roosevelt là bao nhiêu?",
+        "context": "Nền kinh tế phát triển nhanh trong nhiệm kỳ của Roosevelt. Tuy nhiên, sự phát triển này được theo sau là tình trạng thất nghiệp liên tục ở mức độ cao; tỉ lệ thất nghiệp trung bình trong thời New Deal là 17,2%. Suốt cả các nhiệm kỳ của ông, bao gồm những năm chiến tranh, tỉ lệ thất nghiệp trung bình là 13%. Tổng số thất nghiệp trong suốt nhiệm kỳ của ông nới rộng khoảng 18,31 triệu việc làm bị mất trong khi tỉ lệ gia tăng việc làm trung bình hàng năm dưới thời chính phủ của ông là 5,3%.",
+        "is_impossible": false,
+        "references": [
+          "5,3%"
+        ],
+        "predictions": {
+          "XLM-R": {
+            "seed": 42,
+            "prediction_text": "5,3%",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "mDeBERTa": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 0.0,
+            "f1": 0.0,
+            "error_type": "missed_answer"
+          },
+          "PhoBERT": {
+            "seed": 1024,
+            "prediction_text": "5,3 %",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          }
+        }
+      },
+      {
+        "id": "0019-0016-0003",
+        "question": "Trong trận nào thì quân Texas đã mất lợi thế hoàn toàn trước quân của Santa Anna?",
+        "context": "Tổng thống México Antonio Lopez de Santa Anna đích thân dẫn một đội quân đi chấm dứt cuộc nổi dậy. Đội quân viễn chinh México giành được thành công vào lúc đầu, Tướng Jose de Urrea đánh bại toàn bộ các nỗ lực kháng cự của người Texas dọc theo bờ biển mà đỉnh cao là cuộc tàn sát Goliad. Các lực lượng của Santa Anna sau một cuộc bao vây kéo dài 13 ngày đã áp đảo quân phòng thủ Texas trong trận Alamo. Tin tức về các thất bại gây ra tâm trạng hoang mang trong những người định cư tại Texas.",
+        "is_impossible": false,
+        "references": [
+          "trận Alamo"
+        ],
+        "predictions": {
+          "XLM-R": {
+            "seed": 42,
+            "prediction_text": "trận Alamo",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "mDeBERTa": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 0.0,
+            "f1": 0.0,
+            "error_type": "missed_answer"
+          },
+          "PhoBERT": {
+            "seed": 1024,
+            "prediction_text": "trận Alamo",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          }
+        }
+      }
+    ],
+    "spurious_answer": [
+      {
+        "id": "0017-0029-0008",
+        "question": "Số người có việc làm trong nhiệm kỳ của Roosevelt là bao nhiêu?",
+        "context": "Nền kinh tế phát triển nhanh trong nhiệm kỳ của Roosevelt. Tuy nhiên, sự phát triển này được theo sau là tình trạng thất nghiệp liên tục ở mức độ cao; tỉ lệ thất nghiệp trung bình trong thời New Deal là 17,2%. Suốt cả các nhiệm kỳ của ông, bao gồm những năm chiến tranh, tỉ lệ thất nghiệp trung bình là 13%. Tổng số thất nghiệp trong suốt nhiệm kỳ của ông nới rộng khoảng 18,31 triệu việc làm bị mất trong khi tỉ lệ gia tăng việc làm trung bình hàng năm dưới thời chính phủ của ông là 5,3%.",
+        "is_impossible": true,
+        "references": [],
+        "predictions": {
+          "XLM-R": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "mDeBERTa": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "PhoBERT": {
+            "seed": 1024,
+            "prediction_text": "18,31 triệu",
+            "em": 0.0,
+            "f1": 0.0,
+            "error_type": "spurious_answer"
+          }
+        }
+      },
+      {
+        "id": "0015-0040-0001",
+        "question": "Nếu được xếp hạng 1 trong bảng xếp hạng môi trường báo chí thì điều đó đồng nghĩa với điều gì đối với các sinh viên?",
+        "context": "Từ năm 2006, môi trường truyền thông đã được cải thiện với việc chính phủ thảo luận một Đạo luật Tự do Thông tin, và loại bỏ bất kỳ một sự liên quan nào của truyền thông tới chính phủ. Những cuộc cải cách thị trường đã dẫn tới sự gia tăng của số người làm việc trong ngành truyền thông sau từng năm, cùng với số lượng các sinh viên và trường báo chí. Trong báo cáo năm 2008 của mình, Tổ chức Phóng viên Không Biên giới xếp hạng môi trường báo chí ở vị trí 93 trên 173, vị trí số 1 là tự do nhất.",
+        "is_impossible": true,
+        "references": [],
+        "predictions": {
+          "XLM-R": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "mDeBERTa": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "PhoBERT": {
+            "seed": 1024,
+            "prediction_text": "tự do nhất",
+            "em": 0.0,
+            "f1": 0.0,
+            "error_type": "spurious_answer"
+          }
+        }
+      }
+    ],
+    "span_mismatch": [
+      {
+        "id": "0019-0016-0001",
+        "question": "Ai là tổng thống của México?",
+        "context": "Tổng thống México Antonio Lopez de Santa Anna đích thân dẫn một đội quân đi chấm dứt cuộc nổi dậy. Đội quân viễn chinh México giành được thành công vào lúc đầu, Tướng Jose de Urrea đánh bại toàn bộ các nỗ lực kháng cự của người Texas dọc theo bờ biển mà đỉnh cao là cuộc tàn sát Goliad. Các lực lượng của Santa Anna sau một cuộc bao vây kéo dài 13 ngày đã áp đảo quân phòng thủ Texas trong trận Alamo. Tin tức về các thất bại gây ra tâm trạng hoang mang trong những người định cư tại Texas.",
+        "is_impossible": false,
+        "references": [
+          "Antonio Lopez de Santa Anna"
+        ],
+        "predictions": {
+          "XLM-R": {
+            "seed": 42,
+            "prediction_text": "Antonio Lopez de Santa Anna",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          },
+          "mDeBERTa": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 0.0,
+            "f1": 0.0,
+            "error_type": "missed_answer"
+          },
+          "PhoBERT": {
+            "seed": 1024,
+            "prediction_text": "Tổng thống México Antonio Lopez de Santa Anna",
+            "em": 0.0,
+            "f1": 0.7692307692307693,
+            "error_type": "span_mismatch"
+          }
+        }
+      },
+      {
+        "id": "0002-0013-0001",
+        "question": "27% dân số là tỷ lệ dân số là người Kanak tại khu vực nào?",
+        "context": "Người Kanak thuộc nhóm Melanesia, họ là dân tộc bản địa tại Nouvelle-Calédonie. Tổ chức xã hội của họ theo truyền thống dựa trên cơ sở thị tộc, được nhận dạng là thị tộc \"đất liền\" hay \"biển\" tuỳ theo vị trí quê hương và phạm vi chiếm đóng của tổ tiên họ. Theo điều tra nhân khẩu năm 2009, người Kanak chiếm 94% dân số tỉnh Quần đảo Loyauté, 74% dân số tỉnh Bắc và 27% dân số tỉnh Nam. Người Kanak có xu hướng ở vị thế kinh tế-xã hội thấp hơn so với người gốc Âu và những người định cư khác.",
+        "is_impossible": false,
+        "references": [
+          "tỉnh Nam"
+        ],
+        "predictions": {
+          "XLM-R": {
+            "seed": 42,
+            "prediction_text": "tỉnh Quần đảo Loyauté, 74% dân số tỉnh Bắc",
+            "em": 0.0,
+            "f1": 0.1818181818181818,
+            "error_type": "span_mismatch"
+          },
+          "mDeBERTa": {
+            "seed": 42,
+            "prediction_text": "",
+            "em": 0.0,
+            "f1": 0.0,
+            "error_type": "missed_answer"
+          },
+          "PhoBERT": {
+            "seed": 1024,
+            "prediction_text": "tỉnh Nam",
+            "em": 1.0,
+            "f1": 1.0,
+            "error_type": null
+          }
+        }
+      }
+    ]
+  }
+}

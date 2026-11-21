@@ -3,7 +3,7 @@
   "split": "dev",
   "count": 3814,
   "EM_percent": 7.87,
-  "F1_percent": 23.14,
+  "F1_percent": 23.15,
   "answerability_accuracy_percent": 58.36,
   "unanswerable_recall_percent": 23.43,
   "confusion_matrix_labels": [

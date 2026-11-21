@@ -1755,12 +1755,6 @@
       }
     ]
   },
-  "processed_test": {
-    "tong_mau": 7301,
-    "so_mau_loi": 0,
-    "so_mau_thieu_nhan": 7301,
-    "chi_tiet_loi": []
-  },
   "processed_train": {
     "tong_mau": 8000,
     "so_mau_loi": 0,
@@ -1771,6 +1765,12 @@
     "tong_mau": 3814,
     "so_mau_loi": 0,
     "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": []
+  },
+  "processed_test": {
+    "tong_mau": 7301,
+    "so_mau_loi": 0,
+    "so_mau_thieu_nhan": 7301,
     "chi_tiet_loi": []
   }
 }
