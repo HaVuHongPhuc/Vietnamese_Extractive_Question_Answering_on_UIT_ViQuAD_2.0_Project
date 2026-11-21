@@ -1,0 +1,1776 @@
+{
+  "nguon_train": {
+    "tong_mau": 28454,
+    "so_mau_loi": 154,
+    "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": [
+      {
+        "id": "0004-0002-0003",
+        "dong": 251,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0004-0005-0003",
+        "dong": 272,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0006-0002-0001",
+        "dong": 709,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0005-0001",
+        "dong": 1684,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0007-0005",
+        "dong": 1705,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0009-0001",
+        "dong": 1718,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0012-0005",
+        "dong": 1745,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0013-0001",
+        "dong": 1749,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0014-0001",
+        "dong": 1757,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0014-0005",
+        "dong": 1761,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0025-0004",
+        "dong": 1843,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0025-0005",
+        "dong": 1844,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0029-0005",
+        "dong": 1873,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0032-0001",
+        "dong": 1892,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0037-0004",
+        "dong": 1935,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0013-0004-0006",
+        "dong": 2096,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0018-0021-0005",
+        "dong": 2786,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0018-0022-0005",
+        "dong": 2794,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0022-0002-0003",
+        "dong": 3489,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0004-0002",
+        "dong": 4334,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0020-0004",
+        "dong": 4414,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0021-0003",
+        "dong": 4417,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0027-0001",
+        "dong": 4442,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0033-0003",
+        "dong": 4474,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0034-0002",
+        "dong": 4480,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0042-0002",
+        "dong": 4520,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0054-0003",
+        "dong": 4579,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0068-0003",
+        "dong": 4648,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0030-0002-0009",
+        "dong": 4808,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0030-0008-0005",
+        "dong": 4838,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0033-0034-0004",
+        "dong": 5419,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0006-0005",
+        "dong": 5568,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0011-0003",
+        "dong": 5607,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0017-0002",
+        "dong": 5654,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0025-0005",
+        "dong": 5719,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0029-0005",
+        "dong": 5751,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0030-0002",
+        "dong": 5756,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0037-0005",
+        "dong": 5810,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0042-0002",
+        "dong": 5842,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0042-0004",
+        "dong": 5844,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0043-0003",
+        "dong": 5850,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0047-0004",
+        "dong": 5882,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0048-0005",
+        "dong": 5893,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0049-0002",
+        "dong": 5898,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0039-0004-0005",
+        "dong": 6152,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0039-0005-0005",
+        "dong": 6159,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0039-0020-0005",
+        "dong": 6260,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0039-0021-0003",
+        "dong": 6266,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0039-0022-0001",
+        "dong": 6270,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0049-0002-0009",
+        "dong": 7689,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0051-0004-0005",
+        "dong": 8206,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0052-0002-0005",
+        "dong": 8537,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0052-0004-0005",
+        "dong": 8547,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0053-0037-0004",
+        "dong": 8736,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0053-0057-0002",
+        "dong": 8818,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0054-0019-0003",
+        "dong": 9026,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0057-0003-0003",
+        "dong": 10266,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0057-0032-0001",
+        "dong": 10474,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0057-0038-0001",
+        "dong": 10516,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0057-0083-0002",
+        "dong": 10859,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0002-0003",
+        "dong": 10898,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0003-0003",
+        "dong": 10905,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0003-0004",
+        "dong": 10906,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0005-0004",
+        "dong": 10921,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0007-0003",
+        "dong": 10934,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0007-0004",
+        "dong": 10935,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0008-0001",
+        "dong": 10940,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0008-0002",
+        "dong": 10941,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0012-0001",
+        "dong": 10966,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0012-0003",
+        "dong": 10968,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0014-0005",
+        "dong": 10985,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0015-0002",
+        "dong": 10990,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0016-0001",
+        "dong": 10996,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0018-0002",
+        "dong": 11011,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0018-0005",
+        "dong": 11014,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0019-0003",
+        "dong": 11019,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0020-0001",
+        "dong": 11023,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0020-0002",
+        "dong": 11024,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0020-0004",
+        "dong": 11026,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0021-0001",
+        "dong": 11032,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0021-0005",
+        "dong": 11036,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0023-0002",
+        "dong": 11049,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0025-0001",
+        "dong": 11065,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0026-0001",
+        "dong": 11072,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0026-0005",
+        "dong": 11076,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0059-0019-0004",
+        "dong": 11235,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0060-0001-0002",
+        "dong": 11266,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0063-0003-0004",
+        "dong": 11630,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0067-0005-0003",
+        "dong": 12584,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0067-0006-0003",
+        "dong": 12591,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0067-0006-0004",
+        "dong": 12592,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0003-0005",
+        "dong": 12989,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0009-0004",
+        "dong": 13035,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0016-0005",
+        "dong": 13083,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0021-0005",
+        "dong": 13119,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0031-0005",
+        "dong": 13184,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0034-0003",
+        "dong": 13206,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0041-0001",
+        "dong": 13243,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0041-0004",
+        "dong": 13246,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0042-0004",
+        "dong": 13254,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0048-0003",
+        "dong": 13288,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0051-0005",
+        "dong": 13305,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0001-0008",
+        "dong": 13846,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0027-0003",
+        "dong": 13975,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0031-0003",
+        "dong": 13993,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0034-0003",
+        "dong": 14014,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0045-0002",
+        "dong": 14060,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0048-0002",
+        "dong": 14075,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0062-0002",
+        "dong": 14138,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0078-0004-0008",
+        "dong": 14442,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0079-0003-0003",
+        "dong": 14492,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0079-0013-0003",
+        "dong": 14576,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0079-0017-0004",
+        "dong": 14608,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0079-0018-0004",
+        "dong": 14615,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0081-0010-0001",
+        "dong": 15020,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0083-0020-0004",
+        "dong": 15259,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0084-0001-0007",
+        "dong": 15284,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0086-0003-0002",
+        "dong": 15417,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0088-0013-0001",
+        "dong": 15937,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0088-0023-0002",
+        "dong": 16002,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0089-0002-0007",
+        "dong": 16020,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0092-0006-0004",
+        "dong": 16308,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0093-0006-0001",
+        "dong": 16934,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0101-0035-0002",
+        "dong": 18596,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0101-0035-0003",
+        "dong": 18597,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0101-0035-0004",
+        "dong": 18598,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0101-0035-0005",
+        "dong": 18599,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0108-0002-0009",
+        "dong": 20567,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0114-0036-0003",
+        "dong": 21601,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0013-0005",
+        "dong": 21826,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0018-0003",
+        "dong": 21857,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0019-0001",
+        "dong": 21862,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0023-0005",
+        "dong": 21895,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0024-0004",
+        "dong": 21900,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0024-0005",
+        "dong": 21901,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0117-0002-0004",
+        "dong": 21918,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0117-0057-0005",
+        "dong": 22354,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0117-0061-0002",
+        "dong": 22385,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0126-0074-0002",
+        "dong": 24811,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0127-0003-0007",
+        "dong": 25101,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0127-0060-0004",
+        "dong": 25491,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0127-0066-0005",
+        "dong": 25537,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0128-0002-0011",
+        "dong": 25649,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0130-0008-0004",
+        "dong": 25810,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0130-0017-0005",
+        "dong": 25885,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0131-0011-0001",
+        "dong": 26028,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0132-0005-0005",
+        "dong": 26287,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0137-0004-0002",
+        "dong": 26816,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0137-0011-0003",
+        "dong": 26860,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0058-0005",
+        "dong": 27437,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0135-0003",
+        "dong": 27923,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0150-0005",
+        "dong": 28021,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0203-0003",
+        "dong": 28342,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0220-0003",
+        "dong": 28430,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      }
+    ]
+  },
+  "nguon_validation": {
+    "tong_mau": 3814,
+    "so_mau_loi": 22,
+    "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": [
+      {
+        "id": "0001-0007-0004",
+        "dong": 37,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0001-0039-0004",
+        "dong": 214,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0001-0065-0002",
+        "dong": 342,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0001-0066-0005",
+        "dong": 348,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0017-0004",
+        "dong": 745,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0023-0003",
+        "dong": 784,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0026-0003",
+        "dong": 807,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0030-0005",
+        "dong": 831,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0033-0002",
+        "dong": 848,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0004-0036-0002",
+        "dong": 1253,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0006-0022-0002",
+        "dong": 1585,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0009-0006",
+        "dong": 2278,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0021-0001",
+        "dong": 2367,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0028-0001",
+        "dong": 2418,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0029-0002",
+        "dong": 2427,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0031-0007",
+        "dong": 2449,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0033-0002",
+        "dong": 2463,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0021-0002",
+        "dong": 3196,
+        "loi": [
+          "Đáp án 2: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0033-0006",
+        "dong": 3287,
+        "loi": [
+          "Đáp án 2: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0062-0004",
+        "dong": 3483,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0066-0003",
+        "dong": 3506,
+        "loi": [
+          "Đáp án 2: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0018-0004-0006",
+        "dong": 3581,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      }
+    ]
+  },
+  "nguon_test": {
+    "tong_mau": 7301,
+    "so_mau_loi": 0,
+    "so_mau_thieu_nhan": 7301,
+    "chi_tiet_loi": []
+  },
+  "raw_train": {
+    "tong_mau": 8000,
+    "so_mau_loi": 48,
+    "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": [
+      {
+        "id": "0058-0007-0003",
+        "dong": 78,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0020-0004",
+        "dong": 173,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0007-0005",
+        "dong": 512,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0027-0003",
+        "dong": 702,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0048-0005",
+        "dong": 780,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0132-0005-0005",
+        "dong": 910,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0047-0004",
+        "dong": 984,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0026-0005",
+        "dong": 1054,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0135-0003",
+        "dong": 1180,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0048-0002",
+        "dong": 1235,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0059-0019-0004",
+        "dong": 1415,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0101-0035-0002",
+        "dong": 1710,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0014-0005",
+        "dong": 1747,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0004-0002",
+        "dong": 2367,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0088-0013-0001",
+        "dong": 2517,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0054-0003",
+        "dong": 2710,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0016-0001",
+        "dong": 2723,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0052-0002-0005",
+        "dong": 2755,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0203-0003",
+        "dong": 2817,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0025-0001",
+        "dong": 2916,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0004-0002-0003",
+        "dong": 3281,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0130-0017-0005",
+        "dong": 3556,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0058-0018-0002",
+        "dong": 3645,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0037-0004",
+        "dong": 3961,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0220-0003",
+        "dong": 3969,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0128-0002-0011",
+        "dong": 3973,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0025-0005",
+        "dong": 4248,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0004-0005-0003",
+        "dong": 4304,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0101-0035-0005",
+        "dong": 4348,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0137-0011-0003",
+        "dong": 4559,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0057-0083-0002",
+        "dong": 4626,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0011-0009-0001",
+        "dong": 4740,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0022-0002-0003",
+        "dong": 5004,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0138-0058-0005",
+        "dong": 5423,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0017-0002",
+        "dong": 5427,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0043-0003",
+        "dong": 5536,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0116-0013-0005",
+        "dong": 5579,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0067-0006-0004",
+        "dong": 5680,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0034-0042-0004",
+        "dong": 5802,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0003-0005",
+        "dong": 5903,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0114-0036-0003",
+        "dong": 6013,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0053-0037-0004",
+        "dong": 6269,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0027-0020-0004",
+        "dong": 6306,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0041-0001",
+        "dong": 6423,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0034-0003",
+        "dong": 6586,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0075-0001-0008",
+        "dong": 6947,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0071-0021-0005",
+        "dong": 7230,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0018-0021-0005",
+        "dong": 7692,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      }
+    ]
+  },
+  "raw_dev": {
+    "tong_mau": 3814,
+    "so_mau_loi": 22,
+    "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": [
+      {
+        "id": "0001-0007-0004",
+        "dong": 37,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0001-0039-0004",
+        "dong": 214,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0001-0065-0002",
+        "dong": 342,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0001-0066-0005",
+        "dong": 348,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0017-0004",
+        "dong": 745,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0023-0003",
+        "dong": 784,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0026-0003",
+        "dong": 807,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0030-0005",
+        "dong": 831,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0003-0033-0002",
+        "dong": 848,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0004-0036-0002",
+        "dong": 1253,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0006-0022-0002",
+        "dong": 1585,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0009-0006",
+        "dong": 2278,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0021-0001",
+        "dong": 2367,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0028-0001",
+        "dong": 2418,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0029-0002",
+        "dong": 2427,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0031-0007",
+        "dong": 2449,
+        "loi": [
+          "Đáp án 1: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0012-0033-0002",
+        "dong": 2463,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0021-0002",
+        "dong": 3196,
+        "loi": [
+          "Đáp án 2: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0033-0006",
+        "dong": 3287,
+        "loi": [
+          "Đáp án 2: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0062-0004",
+        "dong": 3483,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0017-0066-0003",
+        "dong": 3506,
+        "loi": [
+          "Đáp án 2: offset không khớp context"
+        ]
+      },
+      {
+        "id": "0018-0004-0006",
+        "dong": 3581,
+        "loi": [
+          "Đáp án 0: offset không khớp context"
+        ]
+      }
+    ]
+  },
+  "processed_test": {
+    "tong_mau": 7301,
+    "so_mau_loi": 0,
+    "so_mau_thieu_nhan": 7301,
+    "chi_tiet_loi": []
+  },
+  "processed_train": {
+    "tong_mau": 8000,
+    "so_mau_loi": 0,
+    "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": []
+  },
+  "processed_dev": {
+    "tong_mau": 3814,
+    "so_mau_loi": 0,
+    "so_mau_thieu_nhan": 0,
+    "chi_tiet_loi": []
+  }
+}

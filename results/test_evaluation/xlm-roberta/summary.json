@@ -1,0 +1,20 @@
+{
+  "model": "xlm-roberta",
+  "seeds": [
+    42,
+    123,
+    1024
+  ],
+  "seed_count": 3,
+  "metric_samples_per_seed": [
+    0,
+    0,
+    0
+  ],
+  "mean_exact_match": null,
+  "std_exact_match": null,
+  "mean_f1": null,
+  "std_f1": null,
+  "mean_no_answer_accuracy": null,
+  "std_no_answer_accuracy": null
+}
