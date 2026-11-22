@@ -1,0 +1,18 @@
+{
+  "predictions_path": "D:\\Môn năm 3\\uit-viquad2-extractive-qa\\Vietnamese_Extractive_Question_Answering_on_UIT_ViQuAD_2.0_Project\\results\\test_evaluation\\xlm-roberta\\seed-42\\predictions.json",
+  "test_samples": 7301,
+  "evaluated_samples": 7301,
+  "missing_predictions": 0,
+  "invalid_labels": 0,
+  "has_both_classes": true,
+  "accuracy": 0.6916860704013149,
+  "precision_unanswerable": 0.16618746405980447,
+  "recall_unanswerable": 0.26513761467889907,
+  "f1_unanswerable": 0.20431247790738777,
+  "confusion_matrix": {
+    "tn": 4761,
+    "fp": 1450,
+    "fn": 801,
+    "tp": 289
+  }
+}
