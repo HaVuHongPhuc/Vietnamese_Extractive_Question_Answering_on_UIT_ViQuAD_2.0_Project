@@ -1,0 +1,211 @@
+{
+  "split": "test",
+  "test_file": "testing.json",
+  "test_sha256": "b150511bc39f82ac14d45c57e5df21cacc85602cee04f8d21a3fffd0096d08da",
+  "sample_count": 7301,
+  "has_answer_count": 6211,
+  "no_answer_count": 1090,
+  "dev_no_answer_rate_percent": 30.44048243314106,
+  "test_no_answer_rate_percent": 14.929461717572936,
+  "train_dev_test_duplicate_pairs": 2,
+  "no_answer_rule": "prediction_text == \"\"",
+  "confusion_matrix_order": {
+    "rows": [
+      "true_HasAns",
+      "true_NoAns"
+    ],
+    "columns": [
+      "predicted_HasAns",
+      "predicted_NoAns"
+    ]
+  },
+  "finetune_experiment_ids": {
+    "phobert": "results/finetune/phobert"
+  },
+  "std_ddof": 0,
+  "reference_always_answer": {
+    "answerability_accuracy_percent": 85.07053828242707,
+    "no_answer_precision_percent": 0.0,
+    "no_answer_recall_percent": 0.0,
+    "no_answer_f1_percent": 0.0,
+    "has_answer_recall_percent": 100.0,
+    "balanced_accuracy_percent": 50.0,
+    "predicted_no_answer_rate_percent": 0.0,
+    "confusion_matrix_labels": [
+      "HasAns",
+      "NoAns"
+    ],
+    "confusion_matrix": [
+      [
+        6211,
+        0
+      ],
+      [
+        1090,
+        0
+      ]
+    ]
+  },
+  "methods": {
+    "PhoBERT seed 42": {
+      "answerability_accuracy_percent": 68.81249143952883,
+      "no_answer_precision_percent": 16.935933147632312,
+      "no_answer_recall_percent": 27.889908256880734,
+      "no_answer_f1_percent": 21.07452339688042,
+      "has_answer_recall_percent": 75.99420383191112,
+      "balanced_accuracy_percent": 51.942056044395926,
+      "predicted_no_answer_rate_percent": 24.585673195452678,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          4720,
+          1491
+        ],
+        [
+          786,
+          304
+        ]
+      ]
+    },
+    "PhoBERT seed 123": {
+      "answerability_accuracy_percent": 69.63429667168882,
+      "no_answer_precision_percent": 16.755162241887906,
+      "no_answer_recall_percent": 26.05504587155963,
+      "no_answer_f1_percent": 20.39497307001795,
+      "has_answer_recall_percent": 77.28224118499436,
+      "balanced_accuracy_percent": 51.668643528276995,
+      "predicted_no_answer_rate_percent": 23.21599780851938,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          4800,
+          1411
+        ],
+        [
+          806,
+          284
+        ]
+      ]
+    },
+    "PhoBERT seed 1024": {
+      "answerability_accuracy_percent": 71.55184221339543,
+      "no_answer_precision_percent": 18.222794591113974,
+      "no_answer_recall_percent": 25.96330275229358,
+      "no_answer_f1_percent": 21.415058645478624,
+      "has_answer_recall_percent": 79.55240701980357,
+      "balanced_accuracy_percent": 52.75785488604858,
+      "predicted_no_answer_rate_percent": 21.271058759074098,
+      "confusion_matrix_labels": [
+        "HasAns",
+        "NoAns"
+      ],
+      "confusion_matrix": [
+        [
+          4941,
+          1270
+        ],
+        [
+          807,
+          283
+        ]
+      ]
+    }
+  },
+  "finetune_summary": {
+    "PhoBERT": {
+      "seeds": [
+        42,
+        123,
+        1024
+      ],
+      "std_ddof": 0,
+      "dev_selected_seed": 1024,
+      "metrics": {
+        "answerability_accuracy_percent": {
+          "mean": 69.9995434415377,
+          "std": 1.147770176685986,
+          "per_seed": {
+            "42": 68.81249143952883,
+            "123": 69.63429667168882,
+            "1024": 71.55184221339543
+          }
+        },
+        "no_answer_precision_percent": {
+          "mean": 17.30462999354473,
+          "std": 0.6534213552591372,
+          "per_seed": {
+            "42": 16.935933147632312,
+            "123": 16.755162241887906,
+            "1024": 18.222794591113974
+          }
+        },
+        "no_answer_recall_percent": {
+          "mean": 26.636085626911314,
+          "std": 0.8873772555686182,
+          "per_seed": {
+            "42": 27.889908256880734,
+            "123": 26.05504587155963,
+            "1024": 25.96330275229358
+          }
+        },
+        "no_answer_f1_percent": {
+          "mean": 20.96151837079233,
+          "std": 0.4240450033165584,
+          "per_seed": {
+            "42": 21.07452339688042,
+            "123": 20.39497307001795,
+            "1024": 21.415058645478624
+          }
+        },
+        "has_answer_recall_percent": {
+          "mean": 77.60961734556969,
+          "std": 1.4709597421336338,
+          "per_seed": {
+            "42": 75.99420383191112,
+            "123": 77.28224118499436,
+            "1024": 79.55240701980357
+          }
+        },
+        "balanced_accuracy_percent": {
+          "mean": 52.1228514862405,
+          "std": 0.46268101993957206,
+          "per_seed": {
+            "42": 51.942056044395926,
+            "123": 51.668643528276995,
+            "1024": 52.75785488604858
+          }
+        }
+      },
+      "dev_selected_seed_metrics": {
+        "answerability_accuracy_percent": 71.55184221339543,
+        "no_answer_precision_percent": 18.222794591113974,
+        "no_answer_recall_percent": 25.96330275229358,
+        "no_answer_f1_percent": 21.415058645478624,
+        "has_answer_recall_percent": 79.55240701980357,
+        "balanced_accuracy_percent": 52.75785488604858,
+        "predicted_no_answer_rate_percent": 21.271058759074098,
+        "confusion_matrix_labels": [
+          "HasAns",
+          "NoAns"
+        ],
+        "confusion_matrix": [
+          [
+            4941,
+            1270
+          ],
+          [
+            807,
+            283
+          ]
+        ]
+      }
+    }
+  },
+  "prediction_files_dir": "results\\test\\predictions"
+}
