@@ -10,7 +10,6 @@ __pycache__/
 AGENT.md
 AGENTS.md
 results/finetune/**/checkpoint-*/
-results/finetune/**/best_model/
 *.safetensors
 *.bin
 *.pt
