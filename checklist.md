@@ -120,10 +120,12 @@ Cập nhật sau khi đối chiếu `CanPhaiHoanThanh.md`, mã nguồn và kết
 ## 7. Chọn mô hình và hoàn thiện demo
 
 - [x] Có mã giao diện Streamlit ở `demo/app.py` và `demo/testStreamlit.py`, tải mô hình và hỗ trợ dự đoán span/no-answer.
-- [ ] Chọn mô hình demo tốt nhất **trong ba kiến trúc fine-tune** bằng metric dev đã thống nhất và độ ổn định. Hiện summary PhoBERT cao nhất nhưng chưa chốt vì còn khác biệt tiền xử lý/scorer; cả hai app hiện ưu tiên XLM-R seed 42.
-- [ ] Tích hợp đúng checkpoint đã chọn. Nếu chọn PhoBERT, phải dùng tách từ, tokenizer và cách ánh xạ/giải mã tương ứng; không chỉ đổi đường dẫn trong pipeline XLM-R hiện tại.
-- [ ] Hiển thị rõ mô hình thực sự đang dùng; nếu rơi về Zero-shot dự phòng thì ghi rõ, tránh trình diễn fallback như mô hình fine-tune tốt nhất.
-- [ ] Người dùng chạy thử demo với câu có đáp án, không có đáp án, context dài và câu dễ gây nhầm; lưu ví dụ minh họa thành công và thất bại.
+- [x] Chọn PhoBERT-base-v2 seed 1024 cho demo dựa trên F1 dev và độ ổn định qua ba seed trong bảng chung. XLM-R seed 42 là checkpoint dự phòng.
+- [x] Tích hợp checkpoint PhoBERT với tách từ, tokenizer và ánh xạ offset theo pipeline notebook 06 trong `demo/phobert_inference.py`.
+- [x] Giao diện hiển thị checkpoint thực tế và trạng thái khi chuyển sang XLM-R fine-tune seed 42 dự phòng.
+- [x] Người dùng xác nhận Streamlit đã chạy ổn.
+- [x] Người dùng xác nhận đã chạy thử và lưu ảnh ca có đáp án và không có đáp án với PhoBERT seed 1024.
+- [ ] Chạy và lưu kết quả ca context dài. Đối chiếu ca dễ gây nhầm khi tổng duyệt.
 - [ ] Lưu ảnh/video demo đang chạy; chuẩn bị hướng dẫn chạy và đường link demo theo yêu cầu nộp bài.
 
 ## 8. Báo cáo tiến độ, báo cáo cuối và bảo vệ
@@ -133,7 +135,8 @@ Cập nhật sau khi đối chiếu `CanPhaiHoanThanh.md`, mã nguồn và kết
 - [ ] Hoàn thiện báo cáo cuối với cấu trúc: (1) Giới thiệu; (2) Dataset; (3) Quy trình xử lý dữ liệu; (4) Kết quả thực nghiệm; (5) Phân tích và thảo luận; (6) Kết luận.
 - [ ] Mô tả rõ nguồn dữ liệu, bài báo nền tảng, khác biệt phiên bản UIT-ViQuAD/UIT-ViQuAD 2.0, số mẫu thực tế, chọn tập con, kiểm tra/làm sạch, offset mapping và quy trình tách từ PhoBERT.
 - [ ] Đưa bảng kết quả cuối cùng đã thống nhất: baseline, Zero-shot, ba kiến trúc x ba seed, mean +- std; ghi rõ split, đơn vị %, cách chấm và định nghĩa accuracy/recall NoAns.
-- [ ] Báo cáo phần nâng cao bằng số liệu cụ thể: mô hình học trả lời rỗng, accuracy phân loại có/không có đáp án, confusion matrix và thảo luận lỗi.
+- [x] Người dùng xác nhận đã báo cáo Accuracy có/không có đáp án và Recall NoAns trên dev ở Bảng 1.16, kèm ví dụ tính tay cho PhoBERT seed 1024.
+- [ ] Khi tổng duyệt báo cáo, đối chiếu mô tả cách mô hình học trả rỗng và phần thảo luận ma trận nhầm lẫn với notebook 07.
 - [ ] Thảo luận kiến trúc tốt/kém và std; nêu ảnh hưởng dữ liệu lỗi, khác biệt số mẫu PhoBERT, khác biệt scorer và việc Test chưa có nhãn. Không gán nguyên nhân chưa được chứng minh.
 - [ ] Đặt phần hạn chế/hướng phát triển ở phần thảo luận hoặc mục riêng để đáp ứng rubric; phần kết luận chỉ tổng kết kết quả đạt được theo mong muốn người dùng.
 - [ ] Bổ sung bảng đóng góp của từng thành viên: phần việc, sản phẩm bàn giao, tỷ lệ công sức; kèm mã nguồn và link/hướng dẫn demo.

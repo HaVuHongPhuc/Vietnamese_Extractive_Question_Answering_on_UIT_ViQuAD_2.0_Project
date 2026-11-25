@@ -7,9 +7,9 @@
 | (A) Baseline | Notebook 02, kết quả Jaccard và TF-IDF + Logistic Regression | Đối chiếu F1 22,48% và 23,15% với bảng dev |
 | (B) Zero-shot | Notebook 03 và dự đoán Quy bàn giao | Kiểm tra phần trình bày đúng là dùng checkpoint QA có sẵn, không huấn luyện thêm cho lượt Zero-shot |
 | (C) 3 kiến trúc × 3 seed | Notebook 04/05/06, `results/dev_model_comparison.json` | Hiện đủ seed 42/123/1024 và mean +- std |
-| (D) Demo mô hình đã chọn | `demo/app.py`, PhoBERT seed 1024 và XLM-R dự phòng | Chạy ba ca dưới đây và lưu ảnh, video hoặc link |
+| (D) Demo mô hình đã chọn | `demo/app.py`. Người dùng đã chạy và lưu ảnh hai ca có/không có đáp án với PhoBERT seed 1024 | Chạy ca đoạn văn dài, đối chiếu kết quả và chuẩn bị minh chứng để nộp |
 | Phân tích lỗi | `results/dev_error_analysis.json` | Chọn một ID cho mỗi nhóm và đối chiếu ba mô hình trên cùng câu hỏi |
-| Mục nâng cao | Accuracy, recall NoAns và ma trận trong bảng dev | Giải thích được ví dụ hai seed mDeBERTa luôn trả rỗng |
+| Mục nâng cao | Người dùng đã cập nhật Bảng 1.16 gồm Accuracy và Recall NoAns trên dev, kèm ví dụ tính tay PhoBERT seed 1024 và ảnh demo hai ca | Giải thích khác biệt giữa hai chỉ số khi bảo vệ |
 | Tài liệu và bản nộp | README, bảng metrics, slide và báo cáo nhóm | Xác nhận đường dẫn repo, dữ liệu được phép chia sẻ, hai báo cáo tiến độ, đóng góp bốn vai trò, báo cáo cuối, ảnh/video/link demo |
 
 `27_24DH111441.docx` là file báo cáo tiến độ đợt 1 tìm thấy trong workspace. Nhóm xác nhận riêng tình trạng đã nộp đợt 1/2 và chốt tên, phần việc, tỷ lệ công sức để đưa vào báo cáo nhóm. Giữ báo cáo Word do nhóm soạn và đối chiếu với file JSON cuối trước khi nộp.
